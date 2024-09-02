@@ -1,0 +1,1 @@
+This project is Point Of Sale System for bubble tea shop.
