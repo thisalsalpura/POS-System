@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.Timer;
-import model.JpanelLoader;
 
 /**
  *
@@ -20,6 +19,7 @@ public class Products extends javax.swing.JFrame {
 
     private static Employee_Registration register = new Employee_Registration();
     private static Customer_Registration customer_Registration = new Customer_Registration();
+    private static Supplier_Registration supplier_Registration = new Supplier_Registration();
     private static SignIn signIn = new SignIn();
     private static Home home = new Home();
 
@@ -503,7 +503,9 @@ public class Products extends javax.swing.JFrame {
     }//GEN-LAST:event_menuButton3ActionPerformed
 
     private void menuButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton4ActionPerformed
-        // stocks panel load
+        // supplier panel load
+        this.dispose();
+        supplier_Registration.setVisible(true);
     }//GEN-LAST:event_menuButton4ActionPerformed
 
     private void menuButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton5ActionPerformed

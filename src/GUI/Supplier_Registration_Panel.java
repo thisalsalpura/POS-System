@@ -6,121 +6,30 @@ package GUI;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Vector;
-import javax.swing.ButtonModel;
-import javax.swing.table.DefaultTableModel;
-import model.MySQL;
-import raven.toast.Notifications;
 
 /**
  *
  * @author User
  */
-public class Customer_Registration_Panel extends javax.swing.JPanel {
+public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
     private static Home home = new Home();
 
     /**
-     * Creates new form Customer_Registration_Panel
+     * Creates new form Supplier_Registration_Panel
      */
-    public Customer_Registration_Panel() {
+    public Supplier_Registration_Panel() {
         initComponents();
         init();
         styleTheTextFieldsAndButtons();
-        loadProfiles("first_name", "ASC", searchId.getText());
-
-        // set notification position
-        Notifications.getInstance();
-
-        // disable the buttons
-        update.setEnabled(false);
-
-        // set customer invoices count
-        invoices_count.setText("0");
-    }
-
-    // search profiles
-    private void searchProfiles() {
-
-        int sort = jComboBox1.getSelectedIndex();
-
-        if (sort == 0) {
-            loadProfiles("first_name", "ASC", searchId.getText());
-        } else if (sort == 1) {
-            loadProfiles("first_name", "DESC", searchId.getText());
-        } else if (sort == 2) {
-            loadProfiles("points", "ASC", searchId.getText());
-        } else if (sort == 3) {
-            loadProfiles("points", "DESC", searchId.getText());
-        }
-
-    }
-
-    // load profiles to table
-    public void loadProfiles(String column, String orderby, String email) {
-
-        try {
-
-            ResultSet rs = MySQL.executeSearch("SELECT * FROM `customer` INNER JOIN `gender` ON `customer`.`gender_id` = `gender`.`id` "
-                    + "WHERE `mobile` LIKE '%" + email + "%' ORDER BY `" + column + "` " + orderby + ";");
-
-            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-
-            dtm.setRowCount(0);
-
-            while (rs.next()) {
-                Vector<String> vector = new Vector<>();
-                vector.add(rs.getString("mobile"));
-                vector.add(rs.getString("first_name"));
-                vector.add(rs.getString("last_name"));
-                vector.add(rs.getString("points"));
-                vector.add(rs.getString("gender.name"));
-                vector.add(rs.getString("email"));
-
-                dtm.addRow(vector);
-            }
-
-            jTable1.setModel(dtm);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    // reset the field
-    public void resetField() {
-        mobile.setText("");
-        firstname.setText("");
-        lastname.setText("");
-        email.setText("");
-        genderbuttonGroup.clearSelection();
-        jComboBox1.setSelectedIndex(0);
-
-        jTable1.setEnabled(true);
-        searchId.setEnabled(true);
-        create.setEnabled(true);
-        mobile.setEnabled(true);
-        update.setEnabled(false);
-        searchId.setText("");
-
-        invoices_count.setText("0");
-        jLabel1.setText("REGISTER");
-        mobile.grabFocus();
-        searchProfiles();
-        loadProfiles("first_name", "ASC", searchId.getText());
     }
 
     // style the text fields and buttons
     private void styleTheTextFieldsAndButtons() {
-        mobile.putClientProperty("JComponent.roundRect", true);
-        mobile.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ex :- 0712345678");
-        mobile.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
-        mobile.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        email.putClientProperty("JComponent.roundRect", true);
+        email.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ex :- john@gmail.com");
+        email.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
+        email.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
         firstname.putClientProperty("JComponent.roundRect", true);
         firstname.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ex :- John");
@@ -132,17 +41,17 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         lastname.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
         lastname.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
-        email.putClientProperty("JComponent.roundRect", true);
-        email.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ex :- john@gmail.com");
-        email.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
-        email.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
+        mobile.putClientProperty("JComponent.roundRect", true);
+        mobile.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ex :- 0712345678");
+        mobile.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
+        mobile.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
         create.putClientProperty("JButton.buttonType", "roundRect");
         update.putClientProperty("JButton.buttonType", "roundRect");
         reset.putClientProperty("JButton.buttonType", "roundRect");
 
         searchId.putClientProperty("JComponent.roundRect", true);
-        searchId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search by Mobile Number");
+        searchId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search by Email Address");
         searchId.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
         searchId.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
@@ -164,7 +73,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        genderbuttonGroup = new javax.swing.ButtonGroup();
+        genderButtonGroup = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         backLogo = new javax.swing.JPanel();
         back_label = new javax.swing.JLabel();
@@ -172,12 +81,10 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        mobile = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         firstname = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
+        mobile = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -186,6 +93,12 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         lastname = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
+        email = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        selectCompany = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -203,8 +116,11 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         invoices_count = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        invoices_count1 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(1260, 1050));
+        setPreferredSize(new java.awt.Dimension(1260, 1222));
 
         backLogo.setBackground(new java.awt.Color(121, 203, 96));
         backLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
@@ -251,13 +167,6 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         jPanel7.setBackground(new java.awt.Color(215, 249, 204));
         jPanel7.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 2, true));
 
-        jLabel3.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText(" Mobile");
-
-        mobile.setFont(new java.awt.Font("JetBrains Mono SemiBold", 0, 17)); // NOI18N
-        mobile.setForeground(new java.awt.Color(0, 0, 0));
-
         jLabel4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText(" First Name");
@@ -267,16 +176,16 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText(" Email");
+        jLabel5.setText(" Mobile");
 
-        email.setFont(new java.awt.Font("JetBrains Mono SemiBold", 0, 17)); // NOI18N
-        email.setForeground(new java.awt.Color(0, 0, 0));
+        mobile.setFont(new java.awt.Font("JetBrains Mono SemiBold", 0, 17)); // NOI18N
+        mobile.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel8.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText(" Gender");
 
-        genderbuttonGroup.add(jRadioButton1);
+        genderButtonGroup.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 18)); // NOI18N
         jRadioButton1.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButton1.setText("Male");
@@ -285,7 +194,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         jRadioButton1.setIconTextGap(25);
         jRadioButton1.setActionCommand("1");
 
-        genderbuttonGroup.add(jRadioButton2);
+        genderButtonGroup.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 18)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButton2.setText("Female");
@@ -331,6 +240,57 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
             }
         });
 
+        email.setFont(new java.awt.Font("JetBrains Mono SemiBold", 0, 17)); // NOI18N
+        email.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel13.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText(" Email");
+
+        jPanel12.setBackground(new java.awt.Color(204, 229, 255));
+        jPanel12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(121, 203, 96), 2, true));
+
+        jLabel9.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Company Name :-");
+
+        selectCompany.setBackground(new java.awt.Color(215, 249, 204));
+        selectCompany.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 24)); // NOI18N
+        selectCompany.setForeground(new java.awt.Color(0, 0, 0));
+        selectCompany.setText("Select Company");
+        selectCompany.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(121, 203, 96), 3, true));
+        selectCompany.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel14.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(selectCompany, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(selectCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -345,24 +305,30 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                         .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(email, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(mobile, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(firstname, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mobile, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lastname, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(email, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(6, 6, 6))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(mobile, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
@@ -374,7 +340,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mobile, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
@@ -480,7 +446,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
         jComboBox1.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer Name Ascending Order", "Customer Name Descending Order", "Customer Points Ascending Order", "Customer Points Descending Order" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Supplier Name Ascending Order", "Supplier Name Descending Order", "Company Name Ascending Order", "Company Name Descending Order" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
@@ -497,9 +463,9 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, 0, 491, Short.MAX_VALUE))
                     .addComponent(searchId, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
         jPanel9Layout.setVerticalGroup(
@@ -526,7 +492,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mobile", "First Name", "Last Name", "Points", "Gender", "Email"
+                "Email", "First Name", "Last Name", "Mobile", "Gender", "Company"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -550,7 +516,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,7 +527,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Retro Signed", 0, 66)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("CUSTOMER REGISTRATION");
+        jLabel12.setText("SUPPLIER REGISTRATION");
         jLabel12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel12.setOpaque(true);
 
@@ -581,7 +547,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 28)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("TOTAL INVOICES :-");
+        jLabel7.setText("TOTAL GRN'S :-");
 
         invoices_count.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 28)); // NOI18N
         invoices_count.setForeground(new java.awt.Color(0, 0, 0));
@@ -603,6 +569,35 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(invoices_count, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
+
+        jLabel15.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 28)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel15.setText("PENDING PAYMENTS :-");
+
+        invoices_count1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 28)); // NOI18N
+        invoices_count1.setForeground(new java.awt.Color(0, 0, 0));
+        invoices_count1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(invoices_count1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(invoices_count1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -631,7 +626,8 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(15, 15, 15))))
         );
@@ -646,16 +642,18 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
+                        .addGap(20, 20, 20)
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 984, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -688,240 +686,238 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
 
-        // create account
-        String mobileValue = mobile.getText();
-        String firstNameValue = firstname.getText();
-        String lastNameValue = lastname.getText();
-        String emailValue = email.getText();
-        ButtonModel genderValue = genderbuttonGroup.getSelection();
-
-        if (mobileValue.isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Mobile Number!");
-        } else if (!mobileValue.matches("^07[01245678]{1}[0-9]{7}$")) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Mobile Number!");
-        } else if (firstNameValue.isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the First Name!");
-        } else if (lastNameValue.isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Last Name!");
-        } else if (genderValue == null) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Gender!");
-        } else {
-
-            String genderId = genderValue.getActionCommand();
-
-            boolean canInsert = false;
-
-            if (!emailValue.isEmpty()) {
-
-                if (!emailValue.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
-                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Email Address!");
-                } else {
-
-                    try {
-
-                        ResultSet rs = MySQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + emailValue + "'");
-
-                        if (rs.next()) {
-                            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This Email Address is already existed!");
-                        } else {
-                            canInsert = true;
-                        }
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            } else {
-                canInsert = true;
-            }
-
-            if (canInsert) {
-
-                try {
-
-                    ResultSet rs = MySQL.executeSearch("SELECT * FROM `customer` WHERE `mobile` = '" + mobileValue + "'");
-
-                    if (rs.next()) {
-                        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This Mobile Number is already existed!");
-                    } else {
-
-                        try {
-
-                            MySQL.executeIUD("INSERT INTO `customer` (`mobile`,`first_name`,`last_name`,`email`,`gender_id`,`points`) VALUES "
-                                    + "('" + mobileValue + "', '" + firstNameValue + "', '" + lastNameValue + "', '" + emailValue + "', '" + genderId + "', '0')");
-
-                            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 3500l, "Profile created Successfully!");
-
-                            resetField();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-        }
+//        // create account
+//        String mobileValue = mobile.getText();
+//        String firstNameValue = firstname.getText();
+//        String lastNameValue = lastname.getText();
+//        String emailValue = email.getText();
+//        ButtonModel genderValue = genderbuttonGroup.getSelection();
+//
+//        if (mobileValue.isEmpty()) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Mobile Number!");
+//        } else if (!mobileValue.matches("^07[01245678]{1}[0-9]{7}$")) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Mobile Number!");
+//        } else if (firstNameValue.isEmpty()) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the First Name!");
+//        } else if (lastNameValue.isEmpty()) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Last Name!");
+//        } else if (genderValue == null) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Gender!");
+//        } else {
+//
+//            String genderId = genderValue.getActionCommand();
+//
+//            boolean canInsert = false;
+//
+//            if (!emailValue.isEmpty()) {
+//
+//                if (!emailValue.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
+//                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Email Address!");
+//                } else {
+//
+//                    try {
+//
+//                        ResultSet rs = MySQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + emailValue + "'");
+//
+//                        if (rs.next()) {
+//                            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This Email Address is already existed!");
+//                        } else {
+//                            canInsert = true;
+//                        }
+//
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//
+//            } else {
+//                canInsert = true;
+//            }
+//
+//            if (canInsert) {
+//
+//                try {
+//
+//                    ResultSet rs = MySQL.executeSearch("SELECT * FROM `customer` WHERE `mobile` = '" + mobileValue + "'");
+//
+//                    if (rs.next()) {
+//                        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This Mobile Number is already existed!");
+//                    } else {
+//
+//                        try {
+//
+//                            MySQL.executeIUD("INSERT INTO `customer` (`mobile`,`first_name`,`last_name`,`email`,`gender_id`,`points`) VALUES "
+//                                + "('" + mobileValue + "', '" + firstNameValue + "', '" + lastNameValue + "', '" + emailValue + "', '" + genderId + "', '0')");
+//
+//                            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 3500l, "Profile created Successfully!");
+//
+//                            resetField();
+//
+//                        } catch (SQLException e) {
+//                            e.printStackTrace();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//        }
 
     }//GEN-LAST:event_createActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
 
-        // update account
-        String mobileValue = mobile.getText();
-        String firstNameValue = firstname.getText();
-        String lastNameValue = lastname.getText();
-        String emailValue = email.getText();
-        ButtonModel genderValue = genderbuttonGroup.getSelection();
-
-        if (firstNameValue.isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the First Name!");
-        } else if (lastNameValue.isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Last Name!");
-        } else if (genderValue == null) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Gender!");
-        } else {
-
-            String genderId = genderValue.getActionCommand();
-
-            boolean canUpdate = false;
-
-            if (!emailValue.isEmpty()) {
-
-                if (!emailValue.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
-                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Email Address!");
-                } else {
-
-                    try {
-
-                        ResultSet rs = MySQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + emailValue + "'");
-
-                        if (rs.next()) {
-
-                            if (rs.getString("mobile").equals(mobileValue)) {
-                                canUpdate = true;
-                            } else {
-                                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This Email Address is already existed!");
-                            }
-
-                        } else {
-                            canUpdate = true;
-                        }
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            } else {
-                canUpdate = true;
-            }
-
-            if (canUpdate) {
-
-                try {
-
-                    MySQL.executeIUD("UPDATE `customer` SET `first_name` = '" + firstNameValue + "', `last_name` = '" + lastNameValue + "', `email` = '" + emailValue + "', "
-                            + "`gender_id` = '" + genderId + "' WHERE `mobile` = '" + mobileValue + "'");
-
-                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 3500l, "Profile updated Successfully!");
-
-                    resetField();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-        }
+//        // update account
+//        String mobileValue = mobile.getText();
+//        String firstNameValue = firstname.getText();
+//        String lastNameValue = lastname.getText();
+//        String emailValue = email.getText();
+//        ButtonModel genderValue = genderbuttonGroup.getSelection();
+//
+//        if (firstNameValue.isEmpty()) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the First Name!");
+//        } else if (lastNameValue.isEmpty()) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Last Name!");
+//        } else if (genderValue == null) {
+//            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Gender!");
+//        } else {
+//
+//            String genderId = genderValue.getActionCommand();
+//
+//            boolean canUpdate = false;
+//
+//            if (!emailValue.isEmpty()) {
+//
+//                if (!emailValue.matches("^(?=.{1,64}@)[A-Za-z0-9\\+_-]+(\\.[A-Za-z0-9\\+_-]+)*@[^-][A-Za-z0-9\\+-]+(\\.[A-Za-z0-9\\+-]+)*(\\.[A-Za-z]{2,})$")) {
+//                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Email Address!");
+//                } else {
+//
+//                    try {
+//
+//                        ResultSet rs = MySQL.executeSearch("SELECT * FROM `customer` WHERE `email` = '" + emailValue + "'");
+//
+//                        if (rs.next()) {
+//
+//                            if (rs.getString("mobile").equals(mobileValue)) {
+//                                canUpdate = true;
+//                            } else {
+//                                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This Email Address is already existed!");
+//                            }
+//
+//                        } else {
+//                            canUpdate = true;
+//                        }
+//
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//
+//            } else {
+//                canUpdate = true;
+//            }
+//
+//            if (canUpdate) {
+//
+//                try {
+//
+//                    MySQL.executeIUD("UPDATE `customer` SET `first_name` = '" + firstNameValue + "', `last_name` = '" + lastNameValue + "', `email` = '" + emailValue + "', "
+//                        + "`gender_id` = '" + genderId + "' WHERE `mobile` = '" + mobileValue + "'");
+//
+//                    Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 3500l, "Profile updated Successfully!");
+//
+//                    resetField();
+//
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//        }
 
     }//GEN-LAST:event_updateActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         // reset all
-        resetField();
+//        resetField();
     }//GEN-LAST:event_resetActionPerformed
 
     private void searchIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchIdKeyReleased
 
         // search accounts
-        searchProfiles();
-
+//        searchProfiles();
     }//GEN-LAST:event_searchIdKeyReleased
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-
-        // get a row to update
-        if (evt.getClickCount() == 2) {
-
-            jTable1.setEnabled(false);
-            searchId.setEnabled(false);
-            create.setEnabled(false);
-            mobile.setEnabled(false);
-            update.setEnabled(true);
-            update.grabFocus();
-
-            jLabel1.setText("UPDATE");
-
-            int seletedRow = jTable1.getSelectedRow();
-
-            String mobileValue = String.valueOf(jTable1.getValueAt(seletedRow, 0));
-            String firstNameValue = String.valueOf(jTable1.getValueAt(seletedRow, 1));
-            String lastNameValue = String.valueOf(jTable1.getValueAt(seletedRow, 2));
-            String genderValue = String.valueOf(jTable1.getValueAt(seletedRow, 4));
-            String emailValue = String.valueOf(jTable1.getValueAt(seletedRow, 5));
-
-            mobile.setText(mobileValue);
-            firstname.setText(firstNameValue);
-            lastname.setText(lastNameValue);
-            if (genderValue.equals("Male")) {
-                jRadioButton1.setSelected(true);
-            } else if (genderValue.equals("Female")) {
-                jRadioButton2.setSelected(true);
-            }
-            email.setText(emailValue);
-
-            try {
-
-                ResultSet resultSet = MySQL.executeSearch("SELECT COUNT(`id`) FROM `invoice` WHERE `customer_mobile` = '" + mobileValue + "'");
-
-                if (resultSet.next()) {
-                    invoices_count.setText(resultSet.getString(1));
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }//GEN-LAST:event_jTable1MouseClicked
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
 
         // search accounts
-        searchProfiles();
-
+//        searchProfiles();
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+//        // get a row to update
+//        if (evt.getClickCount() == 2) {
+//
+//            jTable1.setEnabled(false);
+//            searchId.setEnabled(false);
+//            create.setEnabled(false);
+//            mobile.setEnabled(false);
+//            update.setEnabled(true);
+//            update.grabFocus();
+//
+//            jLabel1.setText("UPDATE");
+//
+//            int seletedRow = jTable1.getSelectedRow();
+//
+//            String mobileValue = String.valueOf(jTable1.getValueAt(seletedRow, 0));
+//            String firstNameValue = String.valueOf(jTable1.getValueAt(seletedRow, 1));
+//            String lastNameValue = String.valueOf(jTable1.getValueAt(seletedRow, 2));
+//            String genderValue = String.valueOf(jTable1.getValueAt(seletedRow, 4));
+//            String emailValue = String.valueOf(jTable1.getValueAt(seletedRow, 5));
+//
+//            mobile.setText(mobileValue);
+//            firstname.setText(firstNameValue);
+//            lastname.setText(lastNameValue);
+//            if (genderValue.equals("Male")) {
+//                jRadioButton1.setSelected(true);
+//            } else if (genderValue.equals("Female")) {
+//                jRadioButton2.setSelected(true);
+//            }
+//            email.setText(emailValue);
+//
+//            try {
+//
+//                ResultSet resultSet = MySQL.executeSearch("SELECT COUNT(`id`) FROM `invoice` WHERE `customer_mobile` = '" + mobileValue + "'");
+//
+//                if (resultSet.next()) {
+//                    invoices_count.setText(resultSet.getString(1));
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -930,23 +926,29 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
     private javax.swing.JButton create;
     private javax.swing.JTextField email;
     private javax.swing.JTextField firstname;
-    private javax.swing.ButtonGroup genderbuttonGroup;
+    private javax.swing.ButtonGroup genderButtonGroup;
     private javax.swing.JLabel invoices_count;
+    private javax.swing.JLabel invoices_count1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -963,6 +965,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
     private javax.swing.JTextField mobile;
     private javax.swing.JButton reset;
     private javax.swing.JTextField searchId;
+    private javax.swing.JButton selectCompany;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

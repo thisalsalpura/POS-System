@@ -601,6 +601,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
         jPanel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
 
+        jTable1.setBackground(new java.awt.Color(215, 249, 204));
         jTable1.setFont(new java.awt.Font("JetBrains Mono Medium", 0, 10)); // NOI18N
         jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -851,7 +852,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
                     }
 
                 } else {
-                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This user is already Registered!");
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This Employee is already Registered!");
                 }
 
             } catch (SQLException e) {
@@ -914,7 +915,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
                 } else {
 
                     if (!rs.getString("email").equals(emailValue)) {
-                        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This NIC and Mobile Number is already existed!");
+                        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "This NIC or Mobile Number is already existed!");
                     } else {
                         canUpdate = true;
                     }
@@ -1012,7 +1013,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
-        // get a row to update and delete
+        // get a row to update
         if (evt.getClickCount() == 2) {
 
             jTable1.setEnabled(false);
@@ -1021,8 +1022,9 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
             email.setEnabled(false);
             update.setEnabled(true);
             addressBtn.setEnabled(true);
+            update.grabFocus();
 
-            jLabel1.setText("UPDATE OR DELETE");
+            jLabel1.setText("UPDATE");
 
             int seletedRow = jTable1.getSelectedRow();
 

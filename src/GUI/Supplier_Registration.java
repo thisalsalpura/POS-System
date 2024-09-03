@@ -11,14 +11,14 @@ import raven.toast.Notifications;
  *
  * @author User
  */
-public class Employee_Registration extends javax.swing.JFrame {
-
+public class Supplier_Registration extends javax.swing.JFrame {
+    
     JpanelLoader jpload = new JpanelLoader();
 
     /**
-     * Creates new form Register
+     * Creates new form Supplier_Registration
      */
-    public Employee_Registration() {
+    public Supplier_Registration() {
         initComponents();
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         init();
@@ -29,8 +29,8 @@ public class Employee_Registration extends javax.swing.JFrame {
 
     private void init() {
         // panel load
-        Employee_Registration_Panel register_panel = new Employee_Registration_Panel();
-        jpload.jPanelLoader(register_panel_loader, register_panel);
+        Supplier_Registration_Panel supplier_Registration_Panel = new Supplier_Registration_Panel();
+        jpload.jPanelLoader(register_panel_loader, supplier_Registration_Panel);
     }
 
     /**
@@ -45,7 +45,7 @@ public class Employee_Registration extends javax.swing.JFrame {
         register_panel_loader = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1260, 1403));
+        setPreferredSize(new java.awt.Dimension(1260, 1222));
         setResizable(false);
 
         register_panel_loader.setBorder(null);

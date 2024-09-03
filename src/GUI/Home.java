@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import javax.swing.Timer;
 import java.sql.ResultSet;
-import model.JpanelLoader;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -25,6 +24,7 @@ public class Home extends javax.swing.JFrame {
     private static Employee_Registration register = new Employee_Registration();
     private static Products products = new Products();
     private static Customer_Registration customer_Registration = new Customer_Registration();
+    private static Supplier_Registration supplier_Registration = new Supplier_Registration();
     private static int currentIndex = 0;
     private static FlatSVGIcon[] sliderImages;
     private static SignIn signIn;
@@ -58,7 +58,7 @@ public class Home extends javax.swing.JFrame {
     public void setVisible(boolean b) {
         super.setVisible(b);
         if (b && fullName != null) {
-            jLabel4.setText(" Welcome ! " + fullName);
+            jLabel4.setText(" Welcome! " + fullName + ".");
         }
     }
 
@@ -72,7 +72,7 @@ public class Home extends javax.swing.JFrame {
                 String firstNameValue = rs.getString("first_name");
                 String lastNameValue = rs.getString("last_name");
                 fullName = firstNameValue + " " + lastNameValue;
-                jLabel4.setText(" Welcome ! " + fullName);
+                jLabel4.setText(" Welcome! " + fullName + ".");
             }
 
         } catch (SQLException e) {
@@ -415,7 +415,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        logout_logo.setToolTipText("Register");
+        logout_logo.setToolTipText("LogOut");
         logout_logo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logout_logo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -683,7 +683,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_menuButton3ActionPerformed
 
     private void menuButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton4ActionPerformed
-        // stocks panel load
+        // supplier panel load
+        this.dispose();
+        supplier_Registration.setVisible(true);
     }//GEN-LAST:event_menuButton4ActionPerformed
 
     private void menuButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton5ActionPerformed
