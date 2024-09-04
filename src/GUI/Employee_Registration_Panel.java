@@ -175,7 +175,6 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
         searchId.putClientProperty("JComponent.roundRect", true);
         searchId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search by Email");
         searchId.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
-        searchId.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
     }
 
@@ -750,6 +749,8 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
     private void backLogobackToHome(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLogobackToHome
 
         // back to home
+        resetField();
+        
         java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
         if (parentWindow != null) {
             parentWindow.dispose();

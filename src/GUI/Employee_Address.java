@@ -43,6 +43,7 @@ public class Employee_Address extends javax.swing.JFrame {
         loadCities();
         emp_email.setText(this.email + " ");
 
+        // set notification position
         Notifications.getInstance();
 
         // check add or update
@@ -56,6 +57,7 @@ public class Employee_Address extends javax.swing.JFrame {
         }
     }
 
+    // load address
     private void loadAddress() {
 
         try {
@@ -94,7 +96,7 @@ public class Employee_Address extends javax.swing.JFrame {
 
             DefaultComboBoxModel dcbm = new DefaultComboBoxModel(vector);
             city.setModel(dcbm);
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {

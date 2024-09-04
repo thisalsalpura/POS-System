@@ -46,6 +46,7 @@ public class Home extends javax.swing.JFrame {
         Notifications.getInstance();
     }
 
+    // get use email with a bean
     public void getUserEmail(SignIn signIn) {
         this.signIn = signIn;
         if (!(this.signIn.getUser() == null)) {
@@ -54,6 +55,7 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
+    // store the email staticly
     @Override
     public void setVisible(boolean b) {
         super.setVisible(b);
@@ -711,11 +713,13 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_user_logoMouseClicked
 
     private void right_arrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_right_arrowActionPerformed
+        // get a next slider
         currentIndex = (currentIndex + 1) % sliderImages.length;
         slider.setIcon(sliderImages[currentIndex]);
     }//GEN-LAST:event_right_arrowActionPerformed
 
     private void left_arrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_left_arrowActionPerformed
+        // get a previous slider
         currentIndex = (currentIndex - 1 + sliderImages.length) % sliderImages.length;
         slider.setIcon(sliderImages[currentIndex]);
     }//GEN-LAST:event_left_arrowActionPerformed

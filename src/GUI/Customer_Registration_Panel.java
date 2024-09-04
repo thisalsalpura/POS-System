@@ -103,6 +103,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
         jTable1.setEnabled(true);
         searchId.setEnabled(true);
+        jComboBox1.setEnabled(true);
         create.setEnabled(true);
         mobile.setEnabled(true);
         update.setEnabled(false);
@@ -144,7 +145,6 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         searchId.putClientProperty("JComponent.roundRect", true);
         searchId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search by Mobile Number");
         searchId.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
-        searchId.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
         jComboBox1.putClientProperty("JComponent.roundRect", true);
     }
@@ -678,6 +678,8 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
     private void backLogobackToHome(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLogobackToHome
 
         // back to home
+        resetField();
+        
         java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
         if (parentWindow != null) {
             parentWindow.dispose();
@@ -862,10 +864,8 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_resetActionPerformed
 
     private void searchIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchIdKeyReleased
-
         // search accounts
         searchProfiles();
-
     }//GEN-LAST:event_searchIdKeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -875,6 +875,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
             jTable1.setEnabled(false);
             searchId.setEnabled(false);
+            jComboBox1.setEnabled(false);
             create.setEnabled(false);
             mobile.setEnabled(false);
             update.setEnabled(true);
@@ -917,10 +918,8 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-
         // search accounts
         searchProfiles();
-
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
 

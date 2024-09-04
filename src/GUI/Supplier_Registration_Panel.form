@@ -531,7 +531,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jLabel14" max="32767" attributes="0"/>
+                                      <Component id="company_name" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="selectCompany" max="32767" attributes="0"/>
                               </Group>
@@ -547,7 +547,7 @@
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel9" pref="38" max="32767" attributes="0"/>
-                                  <Component id="jLabel14" max="32767" attributes="0"/>
+                                  <Component id="company_name" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           </Group>
@@ -578,19 +578,15 @@
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Select Company"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                            <LineBorder roundedCorners="true" thickness="3">
-                              <Color PropertyName="color" blue="60" green="cb" red="79" type="rgb"/>
-                            </LineBorder>
-                          </Border>
-                        </Property>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Hand Cursor"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectCompanyActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel14">
+                    <Component class="javax.swing.JLabel" name="company_name">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="JetBrains Mono ExtraBold" size="20" style="1"/>
@@ -598,7 +594,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
-                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="horizontalAlignment" type="int" value="0"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -944,7 +940,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel7" min="-2" pref="440" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="invoices_count" max="32767" attributes="0"/>
+                      <Component id="total_grns" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -953,7 +949,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="invoices_count" alignment="1" max="32767" attributes="0"/>
+                          <Component id="total_grns" alignment="1" max="32767" attributes="0"/>
                           <Component id="jLabel7" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -973,7 +969,7 @@
                 <Property name="text" type="java.lang.String" value="TOTAL GRN&apos;S :-"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="invoices_count">
+            <Component class="javax.swing.JLabel" name="total_grns">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="JetBrains Mono ExtraBold" size="28" style="0"/>
@@ -982,6 +978,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -1003,7 +1000,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel15" min="-2" pref="440" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="invoices_count1" max="32767" attributes="0"/>
+                      <Component id="pending_payments" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1012,7 +1009,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="invoices_count1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="pending_payments" alignment="1" max="32767" attributes="0"/>
                           <Component id="jLabel15" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1032,7 +1029,7 @@
                 <Property name="text" type="java.lang.String" value="PENDING PAYMENTS :-"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="invoices_count1">
+            <Component class="javax.swing.JLabel" name="pending_payments">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="JetBrains Mono ExtraBold" size="28" style="0"/>
@@ -1041,6 +1038,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -246,6 +246,8 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JButton signinbtn;
     // End of variables declaration//GEN-END:variables
 
+    // java bean to  get a sign in user email
+    
     /**
      * @return the user
      */
@@ -260,6 +262,7 @@ public class SignIn extends javax.swing.JFrame {
         this.user = user;
     }
 
+    // reset the field
     private void resetFields() {
         email.setText("");
         password.setText("");
