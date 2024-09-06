@@ -25,6 +25,7 @@ public class Home extends javax.swing.JFrame {
     private static Products products = new Products();
     private static Customer_Registration customer_Registration = new Customer_Registration();
     private static Supplier_Registration supplier_Registration = new Supplier_Registration();
+    private static GRN grn = new GRN();
     private static int currentIndex = 0;
     private static FlatSVGIcon[] sliderImages;
     private static SignIn signIn;
@@ -209,7 +210,6 @@ public class Home extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1260, 620));
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(215, 249, 204));
@@ -273,7 +273,7 @@ public class Home extends javax.swing.JFrame {
 
         menuButton5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         menuButton5.setForeground(new java.awt.Color(0, 0, 0));
-        menuButton5.setText("Orders");
+        menuButton5.setText("GRN");
         menuButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -634,11 +634,11 @@ public class Home extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_loader, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE))
+                    .addComponent(panel_loader, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -692,7 +692,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_menuButton4ActionPerformed
 
     private void menuButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton5ActionPerformed
-        // order panel load
+        // GRN panel load
+        this.dispose();
+        grn.setVisible(true);
     }//GEN-LAST:event_menuButton5ActionPerformed
 
     private void menuButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton6ActionPerformed
@@ -713,18 +715,6 @@ public class Home extends javax.swing.JFrame {
         register.setVisible(true);
     }//GEN-LAST:event_user_logoMouseClicked
 
-    private void right_arrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_right_arrowActionPerformed
-        // get a next slider
-        currentIndex = (currentIndex + 1) % sliderImages.length;
-        slider.setIcon(sliderImages[currentIndex]);
-    }//GEN-LAST:event_right_arrowActionPerformed
-
-    private void left_arrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_left_arrowActionPerformed
-        // get a previous slider
-        currentIndex = (currentIndex - 1 + sliderImages.length) % sliderImages.length;
-        slider.setIcon(sliderImages[currentIndex]);
-    }//GEN-LAST:event_left_arrowActionPerformed
-
     private void logout_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logout_logoMouseClicked
         // go to login
         this.dispose();
@@ -732,6 +722,18 @@ public class Home extends javax.swing.JFrame {
         jLabel4.setText("");
         signIn.setVisible(true);
     }//GEN-LAST:event_logout_logoMouseClicked
+
+    private void left_arrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_left_arrowActionPerformed
+        // get a previous slider
+        currentIndex = (currentIndex - 1 + sliderImages.length) % sliderImages.length;
+        slider.setIcon(sliderImages[currentIndex]);
+    }//GEN-LAST:event_left_arrowActionPerformed
+
+    private void right_arrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_right_arrowActionPerformed
+        // get a next slider
+        currentIndex = (currentIndex + 1) % sliderImages.length;
+        slider.setIcon(sliderImages[currentIndex]);
+    }//GEN-LAST:event_right_arrowActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton billTo;
