@@ -19,6 +19,7 @@ public class SignIn extends javax.swing.JFrame {
 
     private static Employee_Registration register = new Employee_Registration();
     private static Home home = new Home();
+    private static GRN grn = new GRN();
     public String user;
 
     /**
@@ -213,6 +214,7 @@ public class SignIn extends javax.swing.JFrame {
                     setUser(rs.getString("email"));
 
                     home.getUserEmail(this);
+                    grn.getUserEmail(this);
                     
                     resetFields();
 

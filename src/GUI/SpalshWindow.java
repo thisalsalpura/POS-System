@@ -33,7 +33,7 @@ public class SpalshWindow extends javax.swing.JFrame {
     // spalsh loading animation
     private void loadingAnimation() {
 
-        Thread t = new Thread(new Runnable() {  
+        Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i <= 100; i++) {
