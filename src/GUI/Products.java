@@ -33,6 +33,7 @@ public class Products extends javax.swing.JFrame {
     private static SignIn signIn = new SignIn();
     private static Home home = new Home();
     private static GRN grn = new GRN();
+    private Timer stockUpdateTimer;
     private int uniqueId = 0;
 
     /**
@@ -53,6 +54,22 @@ public class Products extends javax.swing.JFrame {
 
         // disable buttons
         update.setEnabled(false);
+
+        startStockUpdateTimer();
+    }
+
+    // load stock always
+    private void startStockUpdateTimer() {
+        int interval = 1000;
+
+        stockUpdateTimer = new Timer(interval, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadStock();
+            }
+        });
+
+        stockUpdateTimer.start();
     }
 
     // load stock
@@ -1397,7 +1414,7 @@ public class Products extends javax.swing.JFrame {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
 
     }//GEN-LAST:event_addActionPerformed

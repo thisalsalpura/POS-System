@@ -47,7 +47,7 @@ public class GRN extends javax.swing.JFrame {
         total_lable.setEnabled(false);
         balance_label.setEnabled(false);
     }
-
+    
     // set supplier details
     public void setSupplierDetails() {
         jLabel5.setText(grnItem.getSupplier_email());
