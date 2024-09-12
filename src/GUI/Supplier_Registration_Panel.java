@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.ButtonModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 import raven.toast.Notifications;
@@ -48,6 +50,12 @@ public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
         total_grns.setText("0");
         pending_payments.setText("0");
+
+        // set the table details center
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jTable1.setDefaultRenderer(Object.class, renderer);
     }
 
     // set company name
@@ -939,7 +947,7 @@ public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
                 double total = 0;
 
-                HashMap<Integer, Double> grns = new HashMap<>();
+                HashMap<Long, Double> grns = new HashMap<>();
 
                 while (resultSet.next()) {
 
@@ -950,7 +958,7 @@ public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
                     total += itemTotal;
 
-                    grns.put(resultSet.getInt("grn.id"), resultSet.getDouble("grn.paid_amount"));
+                    grns.put(resultSet.getLong("grn.id"), resultSet.getDouble("grn.paid_amount"));
 
                 }
 

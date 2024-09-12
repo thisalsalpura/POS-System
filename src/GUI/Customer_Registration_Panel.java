@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.ButtonModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 import raven.toast.Notifications;
@@ -39,6 +41,12 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
         // set customer invoices count
         invoices_count.setText("0");
+
+        // set the table details center
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jTable1.setDefaultRenderer(Object.class, renderer);
     }
 
     // search profiles
@@ -679,7 +687,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
         // back to home
         resetField();
-        
+
         java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
         if (parentWindow != null) {
             parentWindow.dispose();

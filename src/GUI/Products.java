@@ -6,6 +6,8 @@ package GUI;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -15,7 +17,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.MySQL;
 import raven.toast.Notifications;
@@ -56,11 +60,30 @@ public class Products extends javax.swing.JFrame {
         update.setEnabled(false);
 
         startStockUpdateTimer();
+
+        menuButton2.grabFocus();
+
+        // add a icon image
+        Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icon.png"));
+        this.setIconImage(image);
+
+        // set the table details center
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jTable1.setDefaultRenderer(Object.class, renderer);
+        jTable2.setDefaultRenderer(Object.class, renderer);
+        jTable3.setDefaultRenderer(Object.class, renderer);
+    }
+
+    // highlited the current page button
+    public void highlitedTheButton() {
+        menuButton2.grabFocus();
     }
 
     // load stock always
     private void startStockUpdateTimer() {
-        int interval = 1000;
+        int interval = 100;
 
         stockUpdateTimer = new Timer(interval, new ActionListener() {
             @Override
@@ -260,7 +283,6 @@ public class Products extends javax.swing.JFrame {
         jFormattedTextField2.putClientProperty("JComponent.roundRect", true);
         jFormattedTextField2.putClientProperty(FlatClientProperties.STYLE, "margin:0, 20, 0, 20");
 
-        find.putClientProperty("JButton.buttonType", "roundRect");
         clear_all_stocks.putClientProperty("JButton.buttonType", "roundRect");
     }
 
@@ -372,15 +394,16 @@ public class Products extends javax.swing.JFrame {
         sortBy1 = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel16 = new javax.swing.JPanel();
-        find = new javax.swing.JButton();
         clear_all_stocks = new javax.swing.JButton();
         jPanel19 = new javax.swing.JPanel();
         sortBy = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
@@ -664,9 +687,9 @@ public class Products extends javax.swing.JFrame {
         panel_loader.setOpaque(true);
         panel_loader.setRowHeaderView(null);
 
-        jPanel7.setPreferredSize(new java.awt.Dimension(1036, 1623));
+        jPanel7.setPreferredSize(new java.awt.Dimension(1036, 1637));
 
-        jPanel13.setPreferredSize(new java.awt.Dimension(986, 1706));
+        jPanel13.setPreferredSize(new java.awt.Dimension(986, 1637));
 
         jPanel14.setBackground(new java.awt.Color(215, 249, 204));
         jPanel14.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 5, true));
@@ -737,6 +760,8 @@ public class Products extends javax.swing.JFrame {
         });
 
         jPanel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
+
+        jScrollPane3.setBorder(null);
 
         jTable3.setBackground(new java.awt.Color(215, 249, 204));
         jTable3.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 12)); // NOI18N
@@ -977,6 +1002,10 @@ public class Products extends javax.swing.JFrame {
         jPanel15.setBackground(new java.awt.Color(215, 249, 204));
         jPanel15.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 5, true));
 
+        jPanel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
+
+        jScrollPane1.setBorder(null);
+
         jTable1.setBackground(new java.awt.Color(215, 249, 204));
         jTable1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 14)); // NOI18N
         jTable1.setForeground(new java.awt.Color(0, 0, 0));
@@ -1004,35 +1033,36 @@ public class Products extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+            .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
         jPanel16.setBackground(new java.awt.Color(215, 249, 204));
         jPanel16.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 5, true));
-
-        find.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 24)); // NOI18N
-        find.setForeground(new java.awt.Color(0, 0, 0));
-        find.setText("Find");
-        find.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        find.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findActionPerformed(evt);
-            }
-        });
 
         clear_all_stocks.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 24)); // NOI18N
         clear_all_stocks.setForeground(new java.awt.Color(0, 0, 0));
@@ -1049,6 +1079,11 @@ public class Products extends javax.swing.JFrame {
         sortBy.setFont(new java.awt.Font("JetBrains Mono SemiBold", 0, 16)); // NOI18N
         sortBy.setForeground(new java.awt.Color(0, 0, 0));
         sortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stock ID Ascending Order", "Stock ID Descending Order", "Stock Quantity Ascending Order", "Stock Quantity Descending Order" }));
+        sortBy.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                sortByItemStateChanged(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 22)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -1081,12 +1116,9 @@ public class Products extends javax.swing.JFrame {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
-                        .addComponent(find, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(clear_all_stocks, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(clear_all_stocks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
         jPanel16Layout.setVerticalGroup(
@@ -1095,14 +1127,16 @@ public class Products extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(find, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clear_all_stocks, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(clear_all_stocks, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
         jPanel25.setBackground(new java.awt.Color(215, 249, 204));
         jPanel25.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 5, true));
+
+        jPanel11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
+
+        jScrollPane2.setBorder(null);
 
         jTable2.setBackground(new java.awt.Color(215, 249, 204));
         jTable2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 14)); // NOI18N
@@ -1126,20 +1160,31 @@ public class Products extends javax.swing.JFrame {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
 
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 946, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -1183,8 +1228,7 @@ public class Products extends javax.swing.JFrame {
                     .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1199,7 +1243,7 @@ public class Products extends javax.swing.JFrame {
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -1209,11 +1253,11 @@ public class Products extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1623, Short.MAX_VALUE)
+            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panel_loader.setViewportView(jPanel7);
@@ -1233,9 +1277,9 @@ public class Products extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1265,6 +1309,7 @@ public class Products extends javax.swing.JFrame {
         secondClear();
         this.dispose();
         home.setVisible(true);
+        home.highlitedTheButton();
     }//GEN-LAST:event_menuButton1ActionPerformed
 
     private void menuButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton3ActionPerformed
@@ -1572,7 +1617,7 @@ public class Products extends javax.swing.JFrame {
 
             sortBy1.setEnabled(false);
             jFormattedTextField1.setEnabled(false);
-            jFormattedTextField2.setEditable(false);
+            jFormattedTextField2.setEnabled(false);
 
             loadProdutsDetailsToUpdate();
 
@@ -1601,10 +1646,10 @@ public class Products extends javax.swing.JFrame {
         loadStock();
     }//GEN-LAST:event_clear_all_stocksActionPerformed
 
-    private void findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findActionPerformed
+    private void sortByItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sortByItemStateChanged
         // load stock
         loadStock();
-    }//GEN-LAST:event_findActionPerformed
+    }//GEN-LAST:event_sortByItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
@@ -1615,7 +1660,6 @@ public class Products extends javax.swing.JFrame {
     private javax.swing.JButton clear_all_products;
     private javax.swing.JButton clear_all_stocks;
     private javax.swing.JLabel date_label;
-    private javax.swing.JButton find;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
@@ -1631,6 +1675,8 @@ public class Products extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -1694,7 +1740,7 @@ public class Products extends javax.swing.JFrame {
 
         sortBy1.setEnabled(true);
         jFormattedTextField1.setEnabled(true);
-        jFormattedTextField2.setEditable(true);
+        jFormattedTextField2.setEnabled(true);
 
         jFormattedTextField1.setText("");
         jFormattedTextField2.setText("");
@@ -1749,7 +1795,7 @@ public class Products extends javax.swing.JFrame {
 
     private void secondClear() {
         sortBy.setSelectedIndex(0);
-        find.grabFocus();
+        sortBy.grabFocus();
     }
 
 }

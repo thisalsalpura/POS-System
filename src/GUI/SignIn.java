@@ -6,6 +6,8 @@ package GUI;
 
 import static GUI.Employee_Address.backToHomeChange;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import model.MySQL;
@@ -31,6 +33,10 @@ public class SignIn extends javax.swing.JFrame {
 
         // set notification position
         Notifications.getInstance();
+
+        // add a icon image
+        Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icon.png"));
+        this.setIconImage(image);
     }
 
     // style the text fields and buttons
@@ -215,7 +221,7 @@ public class SignIn extends javax.swing.JFrame {
 
                     home.getUserEmail(this);
                     grn.getUserEmail(this);
-                    
+
                     resetFields();
 
                     this.dispose();
@@ -249,7 +255,6 @@ public class SignIn extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     // java bean to  get a sign in user email
-    
     /**
      * @return the user
      */

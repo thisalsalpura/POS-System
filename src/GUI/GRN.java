@@ -6,11 +6,15 @@ package GUI;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.GRNItem;
 import model.MySQL;
@@ -46,8 +50,18 @@ public class GRN extends javax.swing.JFrame {
         //disable buttons
         total_lable.setEnabled(false);
         balance_label.setEnabled(false);
+
+        // add a icon image
+        Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icon.png"));
+        this.setIconImage(image);
+
+        // set the table details center
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jTable1.setDefaultRenderer(Object.class, renderer);
     }
-    
+
     // set supplier details
     public void setSupplierDetails() {
         jLabel5.setText(grnItem.getSupplier_email());
@@ -171,7 +185,6 @@ public class GRN extends javax.swing.JFrame {
         clearAll = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1260, 1128));
         setResizable(false);
 
         jScrollPane2.setBorder(null);
@@ -298,70 +311,70 @@ public class GRN extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel4.setBackground(new java.awt.Color(121, 203, 96));
         jLabel4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText(" Supplier Email :-");
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel4.setOpaque(true);
 
-        jLabel5.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel5.setBackground(new java.awt.Color(121, 203, 96));
         jLabel5.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel5.setOpaque(true);
 
-        jLabel8.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel8.setBackground(new java.awt.Color(121, 203, 96));
         jLabel8.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText(" Supplier Name :-");
         jLabel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel8.setOpaque(true);
 
-        jLabel9.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel9.setBackground(new java.awt.Color(121, 203, 96));
         jLabel9.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel9.setOpaque(true);
 
-        jLabel10.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel10.setBackground(new java.awt.Color(121, 203, 96));
         jLabel10.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText(" Material ID :-");
         jLabel10.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel10.setOpaque(true);
 
-        jLabel11.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel11.setBackground(new java.awt.Color(121, 203, 96));
         jLabel11.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel11.setOpaque(true);
 
-        jLabel13.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel13.setBackground(new java.awt.Color(121, 203, 96));
         jLabel13.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 16)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText(" Material Name :-");
         jLabel13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel13.setOpaque(true);
 
-        jLabel15.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel15.setBackground(new java.awt.Color(121, 203, 96));
         jLabel15.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel15.setOpaque(true);
 
-        jLabel16.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel16.setBackground(new java.awt.Color(121, 203, 96));
         jLabel16.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 16)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText(" GRN Material Qty :-");
         jLabel16.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
         jLabel16.setOpaque(true);
 
-        jLabel17.setBackground(new java.awt.Color(215, 249, 204));
+        jLabel17.setBackground(new java.awt.Color(121, 203, 96));
         jLabel17.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 16)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText(" GRN Material Price :-");
@@ -849,7 +862,7 @@ public class GRN extends javax.swing.JFrame {
                             String material_id = String.valueOf(jTable1.getValueAt(i, 1));
                             String grn_material_qty = String.valueOf(jTable1.getValueAt(i, 3));
                             double grn_material_qty_value = Double.parseDouble(grn_material_qty);
-                            
+
                             boolean insert = true;
 
                             while (resultSet1.next()) {

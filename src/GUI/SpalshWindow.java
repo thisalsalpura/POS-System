@@ -6,6 +6,9 @@ package GUI;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,6 +25,10 @@ public class SpalshWindow extends javax.swing.JFrame {
         initComponents();
         loadingAnimation();
         init();
+
+        // add a icon image
+        Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icon.png"));
+        this.setIconImage(image);
     }
 
     private void init() {

@@ -8,6 +8,8 @@ import com.formdev.flatlaf.FlatClientProperties;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.GRNItem;
 import model.MySQL;
@@ -34,6 +36,12 @@ public class GRNSelectMaterial extends javax.swing.JFrame {
 
         // set notification position
         Notifications.getInstance();
+
+        // set the table details center
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jTable1.setDefaultRenderer(Object.class, renderer);
     }
 
     private void styleTheTextFieldsAndButtons() {

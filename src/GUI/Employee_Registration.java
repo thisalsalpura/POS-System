@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import model.JpanelLoader;
 import raven.toast.Notifications;
 
@@ -25,6 +27,10 @@ public class Employee_Registration extends javax.swing.JFrame {
 
         // set notification position
         Notifications.getInstance();
+
+        // add a icon image
+        Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icon.png"));
+        this.setIconImage(image);
     }
 
     private void init() {

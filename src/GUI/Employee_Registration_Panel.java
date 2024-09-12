@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import raven.toast.Notifications;
 
@@ -44,6 +46,12 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
         // disable the buttons
         update.setEnabled(false);
         addressBtn.setEnabled(false);
+
+        // set the table details center
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        jTable1.setDefaultRenderer(Object.class, renderer);
     }
 
     // load profiles to table
@@ -750,7 +758,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
         // back to home
         resetField();
-        
+
         java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
         if (parentWindow != null) {
             parentWindow.dispose();
