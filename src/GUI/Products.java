@@ -34,6 +34,7 @@ public class Products extends javax.swing.JFrame {
     private static Employee_Registration register = new Employee_Registration();
     private static Customer_Registration customer_Registration = new Customer_Registration();
     private static Supplier_Registration supplier_Registration = new Supplier_Registration();
+    private static Invoice invoice = new Invoice();
     private static SignIn signIn = new SignIn();
     private static Home home = new Home();
     private static GRN grn = new GRN();
@@ -507,7 +508,7 @@ public class Products extends javax.swing.JFrame {
 
         bill_btn_txt.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         bill_btn_txt.setForeground(new java.awt.Color(0, 0, 0));
-        bill_btn_txt.setText("To Bill");
+        bill_btn_txt.setText("Invoice");
         bill_btn_txt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bill_btn_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1345,11 +1346,15 @@ public class Products extends javax.swing.JFrame {
     }//GEN-LAST:event_menuButton2ActionPerformed
 
     private void bill_btn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_btn_txtActionPerformed
-        // to bill panel load
+        // invoice panel load
+        this.dispose();
+        invoice.setVisible(true);
     }//GEN-LAST:event_bill_btn_txtActionPerformed
 
     private void billToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billToActionPerformed
-        // to bill panel load
+        // invoice panel load
+        this.dispose();
+        invoice.setVisible(true);
     }//GEN-LAST:event_billToActionPerformed
 
     private void user_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_logoMouseClicked

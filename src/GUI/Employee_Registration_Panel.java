@@ -345,6 +345,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
         jRadioButton1.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 18)); // NOI18N
         jRadioButton1.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButton1.setText("Male");
+        jRadioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jRadioButton1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jRadioButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jRadioButton1.setIconTextGap(25);
@@ -354,6 +355,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
         jRadioButton2.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 18)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(0, 0, 0));
         jRadioButton2.setText("Female");
+        jRadioButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jRadioButton2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jRadioButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jRadioButton2.setIconTextGap(25);
@@ -627,7 +629,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

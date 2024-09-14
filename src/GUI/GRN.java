@@ -125,6 +125,7 @@ public class GRN extends javax.swing.JFrame {
         addtogrn.putClientProperty("JButton.buttonType", "roundRect");
         clear.putClientProperty("JButton.buttonType", "roundRect");
         savegrn.putClientProperty("JButton.buttonType", "roundRect");
+        clearall.putClientProperty("JButton.buttonType", "roundRect");
     }
 
     private void init() {
@@ -182,7 +183,7 @@ public class GRN extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         balance_label = new javax.swing.JFormattedTextField();
         total_lable = new javax.swing.JFormattedTextField();
-        clearAll = new javax.swing.JButton();
+        clearall = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -190,7 +191,7 @@ public class GRN extends javax.swing.JFrame {
         jScrollPane2.setBorder(null);
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(1240, 1128));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1260, 1216));
 
         jLabel14.setBackground(new java.awt.Color(121, 203, 96));
         jLabel14.setFont(new java.awt.Font("Retro Signed", 0, 66)); // NOI18N
@@ -296,6 +297,7 @@ public class GRN extends javax.swing.JFrame {
         selectSupplier.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         selectSupplier.setForeground(new java.awt.Color(0, 0, 0));
         selectSupplier.setText("Select Supplier");
+        selectSupplier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         selectSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectSupplierActionPerformed(evt);
@@ -305,6 +307,7 @@ public class GRN extends javax.swing.JFrame {
         selectMaterial.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         selectMaterial.setForeground(new java.awt.Color(0, 0, 0));
         selectMaterial.setText("Select Material");
+        selectMaterial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         selectMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectMaterialActionPerformed(evt);
@@ -394,6 +397,7 @@ public class GRN extends javax.swing.JFrame {
         addtogrn.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
         addtogrn.setForeground(new java.awt.Color(0, 0, 0));
         addtogrn.setText("Add to GRN");
+        addtogrn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addtogrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addtogrnActionPerformed(evt);
@@ -403,6 +407,7 @@ public class GRN extends javax.swing.JFrame {
         clear.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
         clear.setForeground(new java.awt.Color(0, 0, 0));
         clear.setText("Clear");
+        clear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearActionPerformed(evt);
@@ -446,17 +451,16 @@ public class GRN extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
         );
 
-        jPanel6.setBackground(new java.awt.Color(121, 203, 96));
+        jPanel6.setBackground(new java.awt.Color(215, 249, 204));
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
 
         savegrn.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
         savegrn.setForeground(new java.awt.Color(0, 0, 0));
         savegrn.setText("Save GRN");
+        savegrn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         savegrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 savegrnActionPerformed(evt);
@@ -488,19 +492,31 @@ public class GRN extends javax.swing.JFrame {
         balance_label.setForeground(new java.awt.Color(0, 0, 0));
         balance_label.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         balance_label.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        balance_label.setText("0");
         balance_label.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
 
         total_lable.setForeground(new java.awt.Color(0, 0, 0));
         total_lable.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         total_lable.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        total_lable.setText("0");
         total_lable.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
+
+        clearall.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
+        clearall.setForeground(new java.awt.Color(0, 0, 0));
+        clearall.setText("Clear All");
+        clearall.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clearall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearallActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(savegrn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -512,8 +528,9 @@ public class GRN extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(paying_price, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                            .addComponent(balance_label, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                            .addComponent(total_lable, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))))
+                            .addComponent(balance_label)
+                            .addComponent(total_lable)))
+                    .addComponent(clearall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
         );
         jPanel6Layout.setVerticalGroup(
@@ -533,19 +550,10 @@ public class GRN extends javax.swing.JFrame {
                     .addComponent(balance_label, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(savegrn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(clearall, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
         );
-
-        clearAll.setBackground(new java.awt.Color(121, 203, 96));
-        clearAll.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
-        clearAll.setForeground(new java.awt.Color(0, 0, 0));
-        clearAll.setText("CLEAR ALL");
-        clearAll.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
-        clearAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearAllActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -554,10 +562,6 @@ public class GRN extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(clearAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -592,7 +596,8 @@ public class GRN extends javax.swing.JFrame {
                                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(unit_price, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)))
                             .addComponent(clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(selectMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(selectMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
@@ -641,12 +646,10 @@ public class GRN extends javax.swing.JFrame {
                     .addComponent(addtogrn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clearAll, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
 
         jScrollPane2.setViewportView(jPanel2);
@@ -655,11 +658,11 @@ public class GRN extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2)
         );
 
         pack();
@@ -691,7 +694,7 @@ public class GRN extends javax.swing.JFrame {
 
     private void addtogrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtogrnActionPerformed
 
-        // add the grn to the table
+        // add the grn item to the table
         String employee_email = jLabel3.getText();
         String grn_number = jLabel6.getText();
         String supplier_email = jLabel5.getText();
@@ -702,9 +705,9 @@ public class GRN extends javax.swing.JFrame {
         String grn_material_price = unit_price.getText();
 
         if (employee_email.isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went wrong!");
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went Wrong!");
         } else if (grn_number.isEmpty()) {
-            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went wrong!");
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went Wrong!");
         } else if (supplier_email.isEmpty()) {
             Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Supplier!");
         } else if (supplier_name.isEmpty()) {
@@ -790,7 +793,7 @@ public class GRN extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
-        // get a values to row
+        // get a values to fields
         if (evt.getClickCount() == 2) {
 
             int row = jTable1.getSelectedRow();
@@ -831,9 +834,9 @@ public class GRN extends javax.swing.JFrame {
             String supplier_email = jLabel5.getText();
 
             if (employee_email.isEmpty()) {
-                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went wrong!");
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went Wrong!");
             } else if (grn_number.isEmpty()) {
-                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went wrong!");
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went Wrong!");
             } else if (paying.isEmpty() || paying.equals("0") || paying.equals("0.00")) {
                 Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Paying Price!");
             } else if (!paying.matches("^[0-9]+(\\.[0-9]{1,2})?$")) {
@@ -922,11 +925,11 @@ public class GRN extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_savegrnActionPerformed
 
-    private void clearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAllActionPerformed
+    private void clearallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearallActionPerformed
         // reset
         normalReset();
         fullReset();
-    }//GEN-LAST:event_clearAllActionPerformed
+    }//GEN-LAST:event_clearallActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addtogrn;
@@ -934,7 +937,7 @@ public class GRN extends javax.swing.JFrame {
     private javax.swing.JLabel back_label;
     private javax.swing.JFormattedTextField balance_label;
     private javax.swing.JButton clear;
-    private javax.swing.JButton clearAll;
+    private javax.swing.JButton clearall;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -976,8 +979,9 @@ public class GRN extends javax.swing.JFrame {
     private void normalReset() {
         jLabel11.setText("");
         jLabel15.setText("");
-        qty.setText("");
-        unit_price.setText("");
+        qty.setText("0");
+        unit_price.setText("0");
+        jTable1.clearSelection();
         jTable1.setEnabled(true);
     }
 
@@ -988,7 +992,7 @@ public class GRN extends javax.swing.JFrame {
         dtm.setRowCount(0);
         total_lable.setText("0");
         paying_price.setText("");
-        balance_label.setText("");
+        balance_label.setText("0");
         selectSupplier.setEnabled(true);
     }
 

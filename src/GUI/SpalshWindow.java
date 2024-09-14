@@ -8,7 +8,6 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.ImageIcon;
 
 /**
  *
