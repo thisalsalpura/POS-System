@@ -26,6 +26,7 @@ public class Home extends javax.swing.JFrame {
 
     private static Employee_Registration register = new Employee_Registration();
     private static Products products = new Products();
+    private static Reports reports = new Reports();
     private static Customer_Registration customer_Registration = new Customer_Registration();
     private static Supplier_Registration supplier_Registration = new Supplier_Registration();
     private static int currentIndex = 0;
@@ -362,7 +363,7 @@ public class Home extends javax.swing.JFrame {
 
         menuButton6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         menuButton6.setForeground(new java.awt.Color(0, 0, 0));
-        menuButton6.setText("Earnings");
+        menuButton6.setText("Reports");
         menuButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -779,7 +780,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_menuButton5ActionPerformed
 
     private void menuButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton6ActionPerformed
-        // earning panel load
+        // reports panel load
+        this.dispose();
+        reports.setVisible(true);
     }//GEN-LAST:event_menuButton6ActionPerformed
 
     private void bill_btn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_btn_txtActionPerformed
