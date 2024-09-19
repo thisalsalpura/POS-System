@@ -34,11 +34,11 @@ public class Products extends javax.swing.JFrame {
     private static Employee_Registration register = new Employee_Registration();
     private static Customer_Registration customer_Registration = new Customer_Registration();
     private static Supplier_Registration supplier_Registration = new Supplier_Registration();
-    private static Invoice invoice = new Invoice();
     private static SignIn signIn = new SignIn();
     private static Home home = new Home();
-    private static GRN grn = new GRN();
-    private Timer stockUpdateTimer;
+    private static boolean materialExists = false;
+    private static boolean canUpdate = false;
+    private static boolean loadmaterialExists = false;
     private int uniqueId = 0;
 
     /**
@@ -60,8 +60,6 @@ public class Products extends javax.swing.JFrame {
         // disable buttons
         update.setEnabled(false);
 
-        startStockUpdateTimer();
-
         menuButton2.grabFocus();
 
         // add a icon image
@@ -80,20 +78,6 @@ public class Products extends javax.swing.JFrame {
     // highlited the current page button
     public void highlitedTheButton() {
         menuButton2.grabFocus();
-    }
-
-    // load stock always
-    private void startStockUpdateTimer() {
-        int interval = 100;
-
-        stockUpdateTimer = new Timer(interval, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadStock();
-            }
-        });
-
-        stockUpdateTimer.start();
     }
 
     // load stock
@@ -923,39 +907,38 @@ public class Products extends javax.swing.JFrame {
                     .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
-                            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel14Layout.createSequentialGroup()
-                                    .addComponent(selectMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(6, 6, 6)
-                                    .addComponent(saveMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(44, 44, 44)
-                            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel14Layout.createSequentialGroup()
-                                    .addComponent(addMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(6, 6, 6)
-                                    .addComponent(addMaterialBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(jPanel14Layout.createSequentialGroup()
-                            .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(68, 68, 68)
-                            .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(68, 68, 68)
-                            .addComponent(clear_all_products, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
-                            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                .addComponent(product_id))
-                            .addGap(23, 23, 23)
-                            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                .addComponent(product_name))
-                            .addGap(23, 23, 23)
-                            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(product_price)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(selectMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(saveMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(addMaterialText, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(addMaterialBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(clear_all_products, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(product_id, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(product_name, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(product_price, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))))
                 .addGap(22, 22, 22))
         );
         jPanel14Layout.setVerticalGroup(
@@ -1159,6 +1142,11 @@ public class Products extends javax.swing.JFrame {
             }
         });
         jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -1334,6 +1322,7 @@ public class Products extends javax.swing.JFrame {
         firstClear();
         secondClear();
         this.dispose();
+        GRN grn = new GRN(this);
         grn.setVisible(true);
     }//GEN-LAST:event_menuButton5ActionPerformed
 
@@ -1348,12 +1337,14 @@ public class Products extends javax.swing.JFrame {
     private void bill_btn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_btn_txtActionPerformed
         // invoice panel load
         this.dispose();
+        Invoice invoice = new Invoice(this);
         invoice.setVisible(true);
     }//GEN-LAST:event_bill_btn_txtActionPerformed
 
     private void billToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billToActionPerformed
         // invoice panel load
         this.dispose();
+        Invoice invoice = new Invoice(this);
         invoice.setVisible(true);
     }//GEN-LAST:event_billToActionPerformed
 
@@ -1488,7 +1479,7 @@ public class Products extends javax.swing.JFrame {
 
                 ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `product` WHERE `name` = '" + PrName + "'");
 
-                boolean canUpdate = false;
+                canUpdate = false;
 
                 if (resultSet.next()) {
 
@@ -1574,7 +1565,7 @@ public class Products extends javax.swing.JFrame {
         } else {
 
             DefaultTableModel dtm = (DefaultTableModel) jTable3.getModel();
-            boolean materialExists = false;
+            materialExists = false;
 
             for (int i = 0; i < dtm.getRowCount(); i++) {
                 if (String.valueOf(dtm.getValueAt(i, 1)).equals(material)) {
@@ -1655,6 +1646,11 @@ public class Products extends javax.swing.JFrame {
         // load stock
         loadStock();
     }//GEN-LAST:event_sortByItemStateChanged
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // load stock
+        loadStock();
+    }//GEN-LAST:event_jTable2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
@@ -1753,6 +1749,10 @@ public class Products extends javax.swing.JFrame {
         loadProducts();
 
         product_id.grabFocus();
+
+        materialExists = false;
+        canUpdate = false;
+        loadmaterialExists = false;
     }
 
     private void loadProdutsDetailsToUpdate() {
@@ -1760,7 +1760,7 @@ public class Products extends javax.swing.JFrame {
         try {
 
             DefaultTableModel dtm = (DefaultTableModel) jTable3.getModel();
-            boolean materialExists = false;
+            loadmaterialExists = false;
 
             int row = jTable1.getSelectedRow();
 
@@ -1772,12 +1772,12 @@ public class Products extends javax.swing.JFrame {
             while (resultSet.next()) {
                 for (int i = 0; i < dtm.getRowCount(); i++) {
                     if (String.valueOf(dtm.getValueAt(i, 1)).equals(resultSet.getString("material.name"))) {
-                        materialExists = true;
+                        loadmaterialExists = true;
                         break;
                     }
                 }
 
-                if (!materialExists) {
+                if (!loadmaterialExists) {
                     uniqueId++;
 
                     Vector<String> vector = new Vector<>();

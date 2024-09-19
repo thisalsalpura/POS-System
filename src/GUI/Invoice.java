@@ -8,17 +8,25 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.InputStream;
 import java.sql.SQLException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import raven.toast.Notifications;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import model.InvoiceItem;
 import model.MySQL;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import java.sql.Connection;
+import net.sf.jasperreports.engine.JasperExportManager;
 
 /**
  *
@@ -31,17 +39,26 @@ public class Invoice extends javax.swing.JFrame {
     private static InvoiceItem invoiceItem = new InvoiceItem();
     private static SignIn signIn;
     private static String user;
+    private static boolean saveInvoice = false;
+    private static boolean ItemExists = false;
+    private static boolean updatePoints = false;
+    private static boolean stockOk = true;
+    private static String newPointsCount;
+    private static double usedPoints;
+    private static Products products;
 
     /**
      * Creates new form Invoice
      */
-    public Invoice() {
+    public Invoice(Products products) {
+        this.products = products;
         initComponents();
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         init();
         styleTheTextFieldsAndButtons();
-        generateGRNId();
+        generateInvoiceId();
         loadPaymentMethods();
+        calTotal();
 
         // set notification position
         Notifications.getInstance();
@@ -59,6 +76,9 @@ public class Invoice extends javax.swing.JFrame {
         // set disable buttons
         total_lable.setEnabled(false);
         balance_label.setEnabled(false);
+
+        discount_per.setText("0");
+        paying_price.setText("0");
     }
 
     // set customer details
@@ -66,6 +86,16 @@ public class Invoice extends javax.swing.JFrame {
         jLabel5.setText(invoiceItem.getCustomer_mobile());
         jLabel9.setText(invoiceItem.getCustomer_name());
         jLabel12.setText(invoiceItem.getCustomer_points());
+
+        String points = jLabel12.getText();
+
+        double points_count = Double.parseDouble(points);
+
+        if (points_count <= 0) {
+            jCheckBox1.setEnabled(false);
+        } else {
+            jCheckBox1.setEnabled(true);
+        }
     }
 
     // set customer details
@@ -119,7 +149,7 @@ public class Invoice extends javax.swing.JFrame {
     }
 
     // genarate unique GRN Id
-    private void generateGRNId() {
+    private void generateInvoiceId() {
         long id = System.currentTimeMillis();
         jLabel6.setText(String.valueOf(id));
     }
@@ -510,6 +540,7 @@ public class Invoice extends javax.swing.JFrame {
         discount_per.setForeground(new java.awt.Color(0, 0, 0));
         discount_per.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         discount_per.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        discount_per.setText("0");
         discount_per.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
         discount_per.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -572,8 +603,18 @@ public class Invoice extends javax.swing.JFrame {
         jCheckBox1.setMaximumSize(new java.awt.Dimension(25, 25));
         jCheckBox1.setMinimumSize(new java.awt.Dimension(25, 25));
         jCheckBox1.setPreferredSize(new java.awt.Dimension(25, 25));
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         payment_method.setFont(new java.awt.Font("JetBrains Mono SemiBold", 1, 16)); // NOI18N
+        payment_method.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                payment_methodItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -738,9 +779,9 @@ public class Invoice extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -782,7 +823,7 @@ public class Invoice extends javax.swing.JFrame {
 
     private void backLogobackToHome(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLogobackToHome
         //  back to home
-        generateGRNId();
+        fullReset();
         this.dispose();
         home.setVisible(true);
     }//GEN-LAST:event_backLogobackToHome
@@ -843,7 +884,7 @@ public class Invoice extends javax.swing.JFrame {
                 double product_price_value = Double.parseDouble(product_price);
                 double buying_qty_value = Double.parseDouble(buying_qty);
 
-                boolean ItemExists = false;
+                ItemExists = false;
 
                 DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
 
@@ -879,6 +920,9 @@ public class Invoice extends javax.swing.JFrame {
                 jTable1.setModel(dtm);
                 Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 3500l, "Invoice added Successfully!");
                 normalReset();
+                calTotal();
+                calPoints();
+                calBalance();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -896,21 +940,31 @@ public class Invoice extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
         // get a values to fields
+        int row = jTable1.getSelectedRow();
+
+        String productID = String.valueOf(jTable1.getValueAt(row, 0));
+        String productName = String.valueOf(jTable1.getValueAt(row, 1));
+        String productPrice = String.valueOf(jTable1.getValueAt(row, 2));
+        String buyingQty = String.valueOf(jTable1.getValueAt(row, 3));
+
+        jLabel11.setText(productID);
+        jLabel19.setText(productName);
+        jLabel15.setText(productPrice);
+        qty.setText(buyingQty);
+
+        jTable1.setEnabled(false);
+
         if (evt.getClickCount() == 2) {
 
-            int row = jTable1.getSelectedRow();
-
-            String productID = String.valueOf(jTable1.getValueAt(row, 0));
-            String productName = String.valueOf(jTable1.getValueAt(row, 1));
-            String productPrice = String.valueOf(jTable1.getValueAt(row, 2));
-            String buyingQty = String.valueOf(jTable1.getValueAt(row, 3));
-
-            jLabel11.setText(productID);
-            jLabel19.setText(productName);
-            jLabel15.setText(productPrice);
-            qty.setText(buyingQty);
-
-            jTable1.setEnabled(false);
+            if (row != -1) {
+                DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+                dtm.removeRow(row);
+                calTotal();
+                calPoints();
+                calBalance();
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Row!");
+            }
 
         }
 
@@ -918,19 +972,296 @@ public class Invoice extends javax.swing.JFrame {
 
     private void invoicePrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoicePrintActionPerformed
 
+        // save and print invoice
+        try {
+
+            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+
+            if (dtm.getRowCount() == 0) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please add a Invoice to the Table!");
+            } else {
+
+                String employee_email = jLabel3.getText();
+                String invoice_number = jLabel6.getText();
+                String customer_mobile = jLabel5.getText();
+                String customer_name = jLabel9.getText();
+                String method = String.valueOf(payment_method.getSelectedItem());
+                String paying = paying_price.getText();
+                String points = jLabel12.getText();
+                String total = total_lable.getText();
+
+                double cus_points = Double.parseDouble(points);
+                double totalValue = Double.parseDouble(total);
+
+                double balanceValue = 0;
+
+                if (employee_email.isEmpty()) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went Wrong!");
+                } else if (invoice_number.isEmpty()) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went Wrong!");
+                } else {
+
+                    saveInvoice = false;
+
+                    calTotal();
+                    calPoints();
+
+                    if (method.equals("Cash")) {
+
+                        if (paying.isEmpty() || paying.equals("0") || paying.equals("0.00")) {
+
+                            if (totalValue == 0) {
+                                saveInvoice = true;
+                                balanceValue = 0;
+                            } else {
+                                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Paying Price!");
+                            }
+
+                        } else if (!paying.matches("^[0-9]+(\\.[0-9]{1,2})?$")) {
+                            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Paying Price!");
+                        } else {
+                            calBalance();
+
+                            String balance = balance_label.getText();
+                            balanceValue = Double.parseDouble(balance);
+
+                            if (balanceValue == 0) {
+                                balanceValue = 0;
+                            }
+
+                            if (balanceValue < 0) {
+                                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Paying Price!");
+                            } else {
+                                saveInvoice = true;
+                            }
+
+                        }
+
+                    } else {
+                        saveInvoice = true;
+                    }
+
+                    String discount = discount_per.getText();
+                    double discountValue = Double.parseDouble(discount);
+
+                    Date date = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String invoiceDate = sdf.format(date);
+
+                    int methodId = pmethods.get(method);
+
+                    stockOk = true;
+
+                    if (saveInvoice) {
+
+                        for (int i = 0; i < dtm.getRowCount(); i++) {
+
+                            String PrID = String.valueOf(jTable1.getValueAt(i, 0));
+                            String buyingQty = String.valueOf(jTable1.getValueAt(i, 3));
+                            double buyingQtyValue = Double.parseDouble(buyingQty);
+
+                            ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `product_has_material` WHERE `product_id` = '" + PrID + "'");
+
+                            while (resultSet.next()) {
+
+                                String MaterialID = resultSet.getString("material_id");
+
+                                ResultSet resultSet1 = MySQL.executeSearch("SELECT * FROM `stock` WHERE `material_id` = '" + MaterialID + "'");
+
+                                if (!resultSet1.next()) {
+                                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Don't have a Stock!");
+                                    stockOk = false;
+                                } else {
+
+                                    String stockQty = resultSet1.getString("qty");
+                                    double availableStockQty = Double.parseDouble(stockQty);
+
+                                    if (availableStockQty < buyingQtyValue) {
+                                        Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Don't have a enough Stock!");
+                                        stockOk = false;
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                        if (stockOk) {
+
+                            for (int i = 0; i < dtm.getRowCount(); i++) {
+
+                                String PrID = String.valueOf(jTable1.getValueAt(i, 0));
+                                String buyingQty = String.valueOf(jTable1.getValueAt(i, 3));
+                                double buyingQtyValue = Double.parseDouble(buyingQty);
+
+                                ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `product_has_material` WHERE `product_id` = '" + PrID + "'");
+
+                                while (resultSet.next()) {
+                                    String MaterialID = resultSet.getString("material_id");
+                                    MySQL.executeIUD("UPDATE `stock` SET `qty` = `qty` - '" + buyingQtyValue + "' WHERE `material_id` = '" + MaterialID + "'");
+                                }
+
+                            }
+
+                            if (updatePoints) {
+
+                                jLabel12.setText(newPointsCount);
+
+                                MySQL.executeIUD("UPDATE `customer` SET `points` = '" + newPointsCount + "' WHERE `mobile` = '" + customer_mobile + "'");
+
+                                usedPoints = cus_points - Double.parseDouble(newPointsCount);
+
+                            } else {
+
+                                usedPoints = 0;
+
+                            }
+
+                            ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `invoice` WHERE `id` = '" + invoice_number + "'");
+
+                            if (resultSet.next()) {
+                                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Something went wrong!");
+                            } else {
+
+                                if (method.equals("Card")) {
+                                    paying = total;
+                                }
+
+                                if (discount.isEmpty() || discountValue == 0) {
+                                    discountValue = 0;
+                                }
+
+                                MySQL.executeIUD("INSERT INTO `invoice` (`id`,`date`,`total`,`discount_percentage`,`withdraw_points_count`,`paid_amount`,`payment_method_id`,`employee_email`,`customer_mobile`) "
+                                        + "VALUES ('" + invoice_number + "', '" + invoiceDate + "', '" + total + "', '" + discountValue + "', '" + usedPoints + "', '" + paying + "', '" + methodId + "', '" + employee_email + "', '" + customer_mobile + "')");
+
+                            }
+
+                            for (int i = 0; i < dtm.getRowCount(); i++) {
+
+                                String PrID = String.valueOf(jTable1.getValueAt(i, 0));
+                                String prBuyingQty = String.valueOf(jTable1.getValueAt(i, 3));
+
+                                MySQL.executeIUD("INSERT INTO `invoice_item` (`qty`,`product_id`,`invoice_id`) VALUES "
+                                        + "('" + prBuyingQty + "', '" + PrID + "', '" + invoice_number + "')");
+
+                            }
+
+                            MySQL.executeIUD("UPDATE `customer` SET `points` = `points` + '5' WHERE `mobile` = '" + customer_mobile + "'");
+
+                            HashMap<String, Object> params = new HashMap<>();
+                            params.put("Parameter1", customer_name);
+                            params.put("Parameter2", customer_mobile);
+                            params.put("Parameter3", invoice_number);
+                            params.put("Parameter4", employee_email);
+                            params.put("Parameter5", total);
+                            params.put("Parameter6", String.valueOf(discountValue + " %"));
+                            params.put("Parameter7", String.valueOf(usedPoints));
+                            params.put("Parameter8", method);
+                            params.put("Parameter9", paying);
+                            params.put("Parameter10", String.valueOf(balanceValue));
+
+                            String path = "src//reports//Bubble_Bay_Invoice_Report.jasper";
+
+                            Connection connection = MySQL.getConnection();
+
+                            JasperPrint report = JasperFillManager.fillReport(path, params, connection);
+
+                            JasperViewer viewer = new JasperViewer(report, false);
+
+                            viewer.setBounds(2, 20, 800, 500);
+                            viewer.setLocationRelativeTo(null);
+
+                            viewer.setVisible(true);
+
+                            String folderPath = "Customer_Invoices//";
+                            String fileName = folderPath + invoice_number + "_" + invoiceDate + ".pdf";
+
+                            JasperExportManager.exportReportToPdfFile(report, fileName);
+
+                            Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 3500l, "Invoice saved Successfully!");
+                            fullReset();
+                            calTotal();
+
+                            products.loadStock();
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_invoicePrintActionPerformed
 
     private void discount_perKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_discount_perKeyReleased
-
+        // when enter the discount
+        calTotal();
+        calPoints();
+        calBalance();
     }//GEN-LAST:event_discount_perKeyReleased
 
     private void clearallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearallActionPerformed
-
+        // reset
+        fullReset();
     }//GEN-LAST:event_clearallActionPerformed
 
     private void paying_priceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paying_priceKeyReleased
-        // TODO add your handling code here:
+        // when enter the paying price
+        calTotal();
+        calPoints();
+        calBalance();
     }//GEN-LAST:event_paying_priceKeyReleased
+
+    private void payment_methodItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_payment_methodItemStateChanged
+
+        // set enable or disable paying price field
+        String method = String.valueOf(payment_method.getSelectedItem());
+
+        if (method.equals("Cash")) {
+            paying_price.setEnabled(true);
+            calTotal();
+            calPoints();
+            calBalance();
+        } else if (method.equals("Card")) {
+            paying_price.setEnabled(false);
+            paying_price.setText("0");
+            balance_label.setText("0");
+        }
+
+    }//GEN-LAST:event_payment_methodItemStateChanged
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+
+        // when check the withdraw points
+        String points = jLabel12.getText();
+
+        if (!points.isEmpty()) {
+
+            double pointsValue = Double.parseDouble(points);
+
+            if (pointsValue > 0) {
+                calTotal();
+                calPoints();
+                calBalance();
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Points Count!");
+                jCheckBox1.setSelected(false);
+            }
+
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Customer!");
+            jCheckBox1.setSelected(false);
+        }
+
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addInvoiceItem;
@@ -992,5 +1323,163 @@ public class Invoice extends javax.swing.JFrame {
         qty.setText("0");
         jTable1.clearSelection();
         jTable1.setEnabled(true);
+
+        ItemExists = false;
     }
+
+    // full reset
+    private void fullReset() {
+        normalReset();
+
+        jLabel5.setText("");
+        jLabel9.setText("");
+        jLabel12.setText("");
+        selectCustomer.setEnabled(true);
+
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        dtm.setRowCount(0);
+
+        total_lable.setText("0");
+        discount_per.setText("0");
+        jCheckBox1.setSelected(false);
+        payment_method.setSelectedItem("Cash");
+        paying_price.setText("0");
+        balance_label.setText("0");
+
+        updatePoints = false;
+        newPointsCount = "0";
+        saveInvoice = false;
+
+        generateInvoiceId();
+    }
+
+    // cal total
+    private void calTotal() {
+
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+
+        String discount = discount_per.getText();
+
+        double total = 0;
+
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            total += Double.parseDouble(String.valueOf(jTable1.getValueAt(i, 4)));
+        }
+
+        if (discount.isEmpty() || discount.equals("0") || discount.equals("0.00")) {
+
+            total_lable.setText(String.valueOf(total));
+            discount_per.setText("0");
+
+        } else {
+
+            if (!discount.matches("^[0-9]+(\\.[0-9]{1,2})?$")) {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Discount Percentage!");
+            } else {
+
+                double discount_value = Double.parseDouble(discount);
+
+                if (discount_value >= 100) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Discount Percentage!");
+                    discount_per.setText("0");
+                    calTotal();
+                } else {
+
+                    double deduction_amount = total * discount_value / 100;
+
+                    total_lable.setText(String.valueOf(total - deduction_amount));
+
+                }
+
+            }
+
+        }
+
+    }
+
+    // cal balance
+    private void calBalance() {
+
+        String method = String.valueOf(payment_method.getSelectedItem());
+
+        if (method.equals("Cash")) {
+
+            String paying = paying_price.getText();
+            String total = total_lable.getText();
+
+            double totalValue = Double.parseDouble(total);
+
+            if (paying.isEmpty() || paying.equals("0") || paying.equals("0.00")) {
+
+                balance_label.setText(String.valueOf(0 - totalValue));
+                paying_price.setText("0");
+
+            } else {
+
+                if (!paying.matches("^[0-9]+(\\.[0-9]{1,2})?$")) {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Paying Price!");
+                } else {
+
+                    double paying_value = Double.parseDouble(paying);
+
+                    balance_label.setText(String.valueOf(paying_value - totalValue));
+
+                }
+
+            }
+
+        }
+
+    }
+
+    // cal points
+    private void calPoints() {
+
+        calTotal();
+
+        String points = jLabel12.getText();
+
+        String total = total_lable.getText();
+
+        if (!points.isEmpty() && !total.isEmpty()) {
+
+            double totalValue = Double.parseDouble(total);
+
+            double pointsValue = Double.parseDouble(points);
+
+            if (pointsValue > 0 && totalValue > 0) {
+
+                if (jCheckBox1.isSelected()) {
+
+                    if (totalValue < pointsValue) {
+
+                        total_lable.setText("0");
+
+                        // update the customer points
+                        updatePoints = true;
+                        double updatedPoints = pointsValue - totalValue;
+                        long roundedPoints = Math.round(updatedPoints);
+                        newPointsCount = String.valueOf(roundedPoints);
+
+                    } else {
+
+                        double updatedTotal = totalValue - pointsValue;
+
+                        total_lable.setText(String.valueOf(updatedTotal));
+
+                        // update the customer points
+                        updatePoints = true;
+                        double updatedPoints = 0;
+                        newPointsCount = String.valueOf(updatedPoints);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
 }

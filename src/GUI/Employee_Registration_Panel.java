@@ -29,6 +29,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
     private static HashMap<String, Integer> employeeTypeMap = new HashMap<>();
     private static Home home = new Home();
     private static SignIn signin = new SignIn();
+    private static boolean canUpdate = false;
 
     /**
      * Creates new form Register_Panel
@@ -112,6 +113,8 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
         jLabel1.setText("REGISTER");
         firstname.grabFocus();
         loadProfiles();
+
+        canUpdate = false;
     }
 
     // load countries
@@ -919,7 +922,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
                 int employeeTypeId = employeeTypeMap.get(employeeTypeValue);
 
-                boolean canUpdate = false;
+                canUpdate = false;
 
                 if (!rs.next()) {
                     canUpdate = true;

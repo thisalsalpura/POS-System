@@ -23,6 +23,7 @@ public class Supplier_Company extends javax.swing.JFrame {
 
     private Window parentWindow;
     private Supplier_Registration_Panel supplier_Registration_Panel;
+    private static boolean canUpdate = false;
 
     /**
      * Creates new form Supplier_Company
@@ -447,7 +448,7 @@ public class Supplier_Company extends javax.swing.JFrame {
 
                 ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `supplier's_company` WHERE `name` = '" + name + "' OR `hotline` = '" + hotline + "'");
 
-                boolean canUpdate = false;
+                canUpdate = false;
 
                 if (resultSet.next()) {
 
@@ -555,5 +556,7 @@ public class Supplier_Company extends javax.swing.JFrame {
         loadCompanies();
 
         company_name.grabFocus();
+
+        canUpdate = false;
     }
 }

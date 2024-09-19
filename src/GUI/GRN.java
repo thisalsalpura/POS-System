@@ -28,14 +28,17 @@ public class GRN extends javax.swing.JFrame {
 
     private static Home home = new Home();
     private static GRNItem grnItem = new GRNItem();
-    private static Products products = new Products();
     private static SignIn signIn;
     private static String user;
+    private static Products products;
+    private static boolean insert = true;
+    private static boolean MaterialExists = false;
 
     /**
      * Creates new form GRN
      */
-    public GRN() {
+    public GRN(Products products) {
+        this.products = products;
         initComponents();
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         init();
@@ -60,6 +63,10 @@ public class GRN extends javax.swing.JFrame {
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         jTable1.setDefaultRenderer(Object.class, renderer);
+    }
+
+    GRN(Home home) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // set supplier details
@@ -733,7 +740,7 @@ public class GRN extends javax.swing.JFrame {
                 double grn_qty = Double.parseDouble(grn_material_qty);
                 double grn_price = Double.parseDouble(grn_material_price);
 
-                boolean MaterialExists = false;
+                MaterialExists = false;
 
                 DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
 
@@ -794,21 +801,30 @@ public class GRN extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
         // get a values to fields
+        int row = jTable1.getSelectedRow();
+
+        String materialID = String.valueOf(jTable1.getValueAt(row, 1));
+        String materialName = String.valueOf(jTable1.getValueAt(row, 2));
+        String GRNQty = String.valueOf(jTable1.getValueAt(row, 3));
+        String GRNUnitPrice = String.valueOf(jTable1.getValueAt(row, 4));
+
+        jLabel11.setText(materialID);
+        jLabel15.setText(materialName);
+        qty.setText(GRNQty);
+        unit_price.setText(GRNUnitPrice);
+
+        jTable1.setEnabled(false);
+
         if (evt.getClickCount() == 2) {
 
-            int row = jTable1.getSelectedRow();
-
-            String materialID = String.valueOf(jTable1.getValueAt(row, 1));
-            String materialName = String.valueOf(jTable1.getValueAt(row, 2));
-            String GRNQty = String.valueOf(jTable1.getValueAt(row, 3));
-            String GRNUnitPrice = String.valueOf(jTable1.getValueAt(row, 4));
-
-            jLabel11.setText(materialID);
-            jLabel15.setText(materialName);
-            qty.setText(GRNQty);
-            unit_price.setText(GRNUnitPrice);
-
-            jTable1.setEnabled(false);
+            if (row != -1) {
+                DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+                dtm.removeRow(row);
+                calTotal();
+                getBalance();
+            } else {
+                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Row!");
+            }
 
         }
 
@@ -858,24 +874,20 @@ public class GRN extends javax.swing.JFrame {
                         MySQL.executeIUD("INSERT INTO `grn` (`id`,`date`,`paid_amount`,`supplier_email`,`employee_email`) VALUES "
                                 + "('" + grn_number + "', '" + date + "', '" + payingValue + "', '" + supplier_email + "', '" + employee_email + "')");
 
-                        ResultSet resultSet1 = MySQL.executeSearch("SELECT * FROM `stock`");
-
                         for (int i = 0; i < dtm.getRowCount(); i++) {
 
                             String material_id = String.valueOf(jTable1.getValueAt(i, 1));
                             String grn_material_qty = String.valueOf(jTable1.getValueAt(i, 3));
                             double grn_material_qty_value = Double.parseDouble(grn_material_qty);
 
-                            boolean insert = true;
+                            ResultSet resultSet1 = MySQL.executeSearch("SELECT * FROM `stock` WHERE `material_id` = '" + material_id + "'");
 
-                            while (resultSet1.next()) {
+                            insert = true;
 
-                                if (material_id.equals(resultSet1.getString("material_id"))) {
+                            if (resultSet1.next()) {
 
-                                    MySQL.executeIUD("UPDATE `stock` SET `qty` = `qty` + '" + grn_material_qty_value + "' WHERE `material_id` = '" + material_id + "'");
-                                    insert = false;
-
-                                }
+                                MySQL.executeIUD("UPDATE `stock` SET `qty` = `qty` + '" + grn_material_qty_value + "' WHERE `material_id` = '" + material_id + "'");
+                                insert = false;
 
                             }
 
@@ -910,6 +922,7 @@ public class GRN extends javax.swing.JFrame {
                         normalReset();
                         fullReset();
                         generateGRNId();
+                        
                         products.loadStock();
 
                     }
@@ -983,6 +996,8 @@ public class GRN extends javax.swing.JFrame {
         unit_price.setText("0");
         jTable1.clearSelection();
         jTable1.setEnabled(true);
+
+        MaterialExists = false;
     }
 
     private void fullReset() {
@@ -994,6 +1009,8 @@ public class GRN extends javax.swing.JFrame {
         paying_price.setText("");
         balance_label.setText("0");
         selectSupplier.setEnabled(true);
+
+        insert = true;
     }
 
     // cal total
@@ -1025,7 +1042,7 @@ public class GRN extends javax.swing.JFrame {
                 Double payingValue = Double.parseDouble(paying);
                 Double totalValue = Double.parseDouble(total_lable.getText());
 
-                Double balance = totalValue - payingValue;
+                Double balance = payingValue - totalValue;
                 balance_label.setText(String.valueOf(balance));
 
             }
@@ -1036,7 +1053,7 @@ public class GRN extends javax.swing.JFrame {
             Double payingValue = Double.parseDouble(paying_price.getText());
             Double totalValue = Double.parseDouble(total_lable.getText());
 
-            Double balance = totalValue - payingValue;
+            Double balance = payingValue - totalValue;
             balance_label.setText(String.valueOf(balance));
         }
 

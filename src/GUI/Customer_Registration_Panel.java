@@ -23,6 +23,8 @@ import raven.toast.Notifications;
 public class Customer_Registration_Panel extends javax.swing.JPanel {
 
     private static Home home = new Home();
+    private static boolean canUpdate = false;
+    private static boolean canInsert = false;
 
     /**
      * Creates new form Customer_Registration_Panel
@@ -122,9 +124,12 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
         mobile.grabFocus();
         searchProfiles();
         loadProfiles("first_name", "ASC", searchId.getText());
+
+        canUpdate = false;
+        canInsert = false;
     }
 
-    // style the text fields and buttons
+// style the text fields and buttons
     private void styleTheTextFieldsAndButtons() {
         mobile.putClientProperty("JComponent.roundRect", true);
         mobile.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "ex :- 0712345678");
@@ -721,7 +726,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
             String genderId = genderValue.getActionCommand();
 
-            boolean canInsert = false;
+            canInsert = false;
 
             if (!emailValue.isEmpty()) {
 
@@ -809,7 +814,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
             String genderId = genderValue.getActionCommand();
 
-            boolean canUpdate = false;
+            canUpdate = false;
 
             if (!emailValue.isEmpty()) {
 

@@ -35,4 +35,9 @@ public class MySQL {
 
     }
 
+    public static Connection getConnection() throws Exception {
+        createConnection();
+        return connection;
+    }
+
 }
