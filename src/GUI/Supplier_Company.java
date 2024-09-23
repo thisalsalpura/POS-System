@@ -10,9 +10,12 @@ import java.sql.SQLException;
 import model.MySQL;
 import java.sql.ResultSet;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.LoggerUtils;
 import raven.toast.Notifications;
 
 /**
@@ -24,6 +27,7 @@ public class Supplier_Company extends javax.swing.JFrame {
     private Window parentWindow;
     private Supplier_Registration_Panel supplier_Registration_Panel;
     private static boolean canUpdate = false;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form Supplier_Company
@@ -69,8 +73,10 @@ public class Supplier_Company extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Companies Error!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Companies Error!", e);
         }
 
     }
@@ -418,8 +424,10 @@ public class Supplier_Company extends javax.swing.JFrame {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Companies Error!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Companies Error!", e);
             }
 
         }
@@ -474,8 +482,10 @@ public class Supplier_Company extends javax.swing.JFrame {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Companies Error!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Companies Error!", e);
             }
 
         }

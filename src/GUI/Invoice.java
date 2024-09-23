@@ -8,7 +8,6 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.InputStream;
 import java.sql.SQLException;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,6 +25,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.LoggerUtils;
 import net.sf.jasperreports.engine.JasperExportManager;
 
 /**
@@ -46,6 +48,7 @@ public class Invoice extends javax.swing.JFrame {
     private static String newPointsCount;
     private static double usedPoints;
     private static Products products;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form Invoice
@@ -124,8 +127,10 @@ public class Invoice extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Methods Error in the Invoice!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Methods Error in the Invoice!", e);
         }
 
     }
@@ -823,7 +828,6 @@ public class Invoice extends javax.swing.JFrame {
 
     private void backLogobackToHome(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLogobackToHome
         //  back to home
-        fullReset();
         this.dispose();
         home.setVisible(true);
     }//GEN-LAST:event_backLogobackToHome
@@ -926,6 +930,7 @@ public class Invoice extends javax.swing.JFrame {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Invoice Error!", e);
             }
 
         }
@@ -1174,7 +1179,7 @@ public class Invoice extends javax.swing.JFrame {
 
                             viewer.setVisible(true);
 
-                            String folderPath = "Customer_Invoices//";
+                            String folderPath = "reports//Customer_Invoices//";
                             String fileName = folderPath + invoice_number + "_" + invoiceDate + ".pdf";
 
                             JasperExportManager.exportReportToPdfFile(report, fileName);
@@ -1195,8 +1200,10 @@ public class Invoice extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Save Invoice Error!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Save Invoice Error!", e);
         }
 
     }//GEN-LAST:event_invoicePrintActionPerformed

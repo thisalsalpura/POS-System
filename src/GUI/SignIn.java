@@ -8,8 +8,11 @@ import static GUI.Employee_Address.backToHomeChange;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.logging.Level;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.logging.Logger;
+import model.LoggerUtils;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -25,6 +28,7 @@ public class SignIn extends javax.swing.JFrame {
     private static GRN grn = new GRN(products);
     private static Invoice invoice = new Invoice(products);
     public String user;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form SignIn
@@ -224,7 +228,6 @@ public class SignIn extends javax.swing.JFrame {
                     home.getUserEmail(this);
                     grn.getUserEmail(this);
                     invoice.getUserEmail(this);
-                    
 
                     resetFields();
 
@@ -238,8 +241,10 @@ public class SignIn extends javax.swing.JFrame {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Sign In!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Sign In!", e);
             }
 
         }

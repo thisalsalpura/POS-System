@@ -8,6 +8,22 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import model.MySQL;
+import java.sql.ResultSet;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.LoggerUtils;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import raven.toast.Notifications;
 
 /**
@@ -17,6 +33,7 @@ import raven.toast.Notifications;
 public class Reports extends javax.swing.JFrame {
 
     private static Home home = new Home();
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form Reports
@@ -34,8 +51,8 @@ public class Reports extends javax.swing.JFrame {
         Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icon.png"));
         this.setIconImage(image);
     }
-    
-        // style the text fields and buttons
+
+    // style the text fields and buttons
     private void styleTheTextFieldsAndButtons() {
         jTextField1.putClientProperty("JComponent.roundRect", true);
         jTextField1.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter Employee Email");
@@ -88,7 +105,6 @@ public class Reports extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1260, 750));
         setResizable(false);
 
         jScrollPane1.setBorder(null);
@@ -139,7 +155,7 @@ public class Reports extends javax.swing.JFrame {
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 1220, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,6 +172,12 @@ public class Reports extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Get Report");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -165,6 +187,12 @@ public class Reports extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Get Report");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("JetBrains Mono SemiBold", 0, 18)); // NOI18N
 
@@ -178,6 +206,12 @@ public class Reports extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("Get Report");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -187,6 +221,12 @@ public class Reports extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 0, 0));
         jButton5.setText("Get Report");
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -277,13 +317,14 @@ public class Reports extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(backLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(backLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(20, 20, 20))
         );
         jPanel5Layout.setVerticalGroup(
@@ -292,11 +333,10 @@ public class Reports extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(backLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,45 +368,292 @@ public class Reports extends javax.swing.JFrame {
         home.setVisible(true);
     }//GEN-LAST:event_backLogo1backToHome
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Reports.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Reports.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Reports.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Reports.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Reports().setVisible(true);
+        // get stock report
+        try {
+
+            String path = "src//reports//Bubble_Bay_Stock_Report.jasper";
+
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+            String stockDate = sdf.format(date);
+
+            Connection connection = MySQL.getConnection();
+
+            JasperPrint report = JasperFillManager.fillReport(path, null, connection);
+
+            JasperViewer viewer = new JasperViewer(report, false);
+
+            viewer.setBounds(2, 20, 800, 500);
+            viewer.setLocationRelativeTo(null);
+
+            viewer.setVisible(true);
+
+            String folderPath = "reports//Stock_Reports//";
+            String fileName = folderPath + stockDate + "_stock_report.pdf";
+
+            JasperExportManager.exportReportToPdfFile(report, fileName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.log(Level.WARNING, "Report Generating Error!", e);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        // get employee detail report
+        String email = jTextField1.getText();
+
+        if (email.isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Employee Email Address!");
+        } else {
+
+            try {
+
+                ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `employee` WHERE `email` = '" + email + "'");
+
+                if (resultSet.next()) {
+
+                    String path = "src//reports//Bubble_Bay_Employee_Report.jasper";
+
+                    HashMap<String, Object> params = new HashMap<>();
+                    params.put("Parameter1", email);
+
+                    Connection connection = MySQL.getConnection();
+
+                    JasperPrint report = JasperFillManager.fillReport(path, params, connection);
+
+                    JasperViewer viewer = new JasperViewer(report, false);
+
+                    viewer.setBounds(2, 20, 800, 500);
+                    viewer.setLocationRelativeTo(null);
+
+                    viewer.setVisible(true);
+
+                    String folderPath = "reports//Employee_Reports//";
+                    String fileName = folderPath + email + "_details.pdf";
+
+                    JasperExportManager.exportReportToPdfFile(report, fileName);
+
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Employee Email Address!");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                logger.log(Level.WARNING, "Report Generating Error!", e);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.log(Level.WARNING, "Report Generating Error!", e);
             }
-        });
-    }
+
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        // get employee detail report
+        String email = jTextField2.getText();
+
+        if (email.isEmpty()) {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please enter the Supplier Email Address!");
+        } else {
+
+            try {
+
+                ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `supplier` WHERE `email` = '" + email + "'");
+
+                if (resultSet.next()) {
+
+                    String path = "src//reports//Bubble_Bay_Supplier_Report.jasper";
+
+                    HashMap<String, Object> params = new HashMap<>();
+                    params.put("Parameter1", email);
+
+                    Connection connection = MySQL.getConnection();
+
+                    JasperPrint report = JasperFillManager.fillReport(path, params, connection);
+
+                    JasperViewer viewer = new JasperViewer(report, false);
+
+                    viewer.setBounds(2, 20, 800, 500);
+                    viewer.setLocationRelativeTo(null);
+
+                    viewer.setVisible(true);
+
+                    String folderPath = "reports//Supplier_Reports//";
+                    String fileName = folderPath + email + "_details.pdf";
+
+                    JasperExportManager.exportReportToPdfFile(report, fileName);
+
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Supplier Email Address!");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                logger.log(Level.WARNING, "Report Generating Error!", e);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.log(Level.WARNING, "Report Generating Error!", e);
+            }
+
+        }
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        // get sales details report
+        try {
+
+            String todayMostSellingProduct = "empty";
+            String monthlyMostSellingProduct = "empty";
+            String todayEarning = "0.0";
+            String monthlyEarning = "0.0";
+            String mostActiveCustomer = "empty";
+
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            String formattedTodayDate = sdf.format(date);
+
+            ResultSet resultSet = MySQL.executeSearch("SELECT `name`, `product_id`, SUM(`qty`) AS `total_sold` FROM `invoice_item` "
+                    + "INNER JOIN `invoice` ON `invoice`.`id` = `invoice_item`.`invoice_id` INNER JOIN `product` ON `product`.`id` = `invoice_item`.`product_id` "
+                    + "WHERE `invoice`.`date` = '" + formattedTodayDate + "' GROUP BY `product_id` ORDER BY `total_sold` DESC LIMIT 1;");
+
+            if (resultSet.next()) {
+
+                todayMostSellingProduct = resultSet.getString("name");
+
+                if (todayMostSellingProduct == null) {
+                    todayMostSellingProduct = "empty";
+                }
+
+            } else {
+
+                todayMostSellingProduct = "empty";
+
+            }
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.add(Calendar.MONTH, -1);
+            Date beforeDate = cal.getTime();
+
+            String formattedBeforeDate = sdf.format(beforeDate);
+
+            ResultSet resultSet1 = MySQL.executeSearch("SELECT `name`, `product_id`, SUM(`qty`) AS `total_sold` FROM `invoice_item` "
+                    + "INNER JOIN `invoice` ON `invoice`.`id` = `invoice_item`.`invoice_id` INNER JOIN `product` ON `product`.`id` = `invoice_item`.`product_id` "
+                    + "WHERE `invoice`.`date` BETWEEN '" + formattedBeforeDate + "' AND '" + formattedTodayDate + "' "
+                    + "GROUP BY `product_id` ORDER BY `total_sold` DESC LIMIT 1;");
+
+            if (resultSet1.next()) {
+
+                monthlyMostSellingProduct = resultSet1.getString("name");
+
+                if (monthlyMostSellingProduct == null) {
+                    monthlyMostSellingProduct = "empty";
+                }
+
+            } else {
+
+                monthlyMostSellingProduct = "empty";
+
+            }
+
+            ResultSet resultSet2 = MySQL.executeSearch("SELECT SUM(`total`) AS `today_earning` FROM `invoice` WHERE `date` = '" + formattedTodayDate + "'");
+
+            if (resultSet2.next()) {
+
+                todayEarning = resultSet2.getString("today_earning");
+
+                if (todayEarning == null) {
+                    todayEarning = "0.0";
+                }
+
+            } else {
+
+                todayEarning = "0.0";
+
+            }
+
+            ResultSet resultSet3 = MySQL.executeSearch("SELECT SUM(`total`) AS `monthly_earning` FROM `invoice` WHERE `date` BETWEEN '" + formattedBeforeDate + "' AND '" + formattedTodayDate + "'");
+
+            if (resultSet3.next()) {
+
+                monthlyEarning = resultSet3.getString("monthly_earning");
+
+                if (monthlyEarning == null) {
+                    monthlyEarning = "0.0";
+                }
+
+            } else {
+
+                monthlyEarning = "0.0";
+
+            }
+
+            ResultSet resultSet4 = MySQL.executeSearch("SELECT `first_name`, `last_name`, `customer_mobile`, COUNT(*) AS `invoice_count` FROM `invoice` INNER JOIN `customer` ON `invoice`.`customer_mobile` = `customer`.`mobile` "
+                    + "GROUP BY `customer_mobile` ORDER BY `invoice_count` DESC LIMIT 1");
+
+            if (resultSet4.next()) {
+
+                String firstName = resultSet4.getString("first_name");
+                String lastName = resultSet4.getString("last_name");
+                mostActiveCustomer = firstName + " " + lastName;
+
+                if (mostActiveCustomer == null) {
+                    mostActiveCustomer = "empty";
+                }
+
+            } else {
+
+                mostActiveCustomer = "empty";
+
+            }
+
+            String path = "src//reports//Bubble_Bay_Sales_Report.jasper";
+
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("Parameter1", todayMostSellingProduct);
+            params.put("Parameter2", monthlyMostSellingProduct);
+            params.put("Parameter3", String.valueOf("Rs. " + todayEarning));
+            params.put("Parameter4", String.valueOf("Rs. " + monthlyEarning));
+            params.put("Parameter5", mostActiveCustomer);
+
+            JREmptyDataSource dataSource = new JREmptyDataSource();
+
+            JasperPrint report = JasperFillManager.fillReport(path, params, dataSource);
+
+            JasperViewer viewer = new JasperViewer(report, false);
+
+            viewer.setBounds(2, 20, 800, 500);
+            viewer.setLocationRelativeTo(null);
+
+            viewer.setVisible(true);
+
+            String folderPath = "reports//Sales_Report//";
+            String fileName = folderPath + formattedTodayDate + "_sales_report.pdf";
+
+            JasperExportManager.exportReportToPdfFile(report, fileName);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.log(Level.WARNING, "Report Generating Error!", e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.log(Level.WARNING, "Report Generating Error!", e);
+        }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel backLogo;
     private javax.swing.JPanel backLogo1;
-    private javax.swing.JLabel back_label;
     private javax.swing.JLabel back_label1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
@@ -374,14 +661,12 @@ public class Reports extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

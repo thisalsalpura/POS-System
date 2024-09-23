@@ -9,10 +9,13 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.LoggerUtils;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -25,6 +28,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
     private static Home home = new Home();
     private static boolean canUpdate = false;
     private static boolean canInsert = false;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form Customer_Registration_Panel
@@ -96,8 +100,10 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Profiles Error in the Customer Registration!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Profiles Error in the Customer Registration!", e);
         }
 
     }
@@ -746,8 +752,10 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
                     } catch (SQLException e) {
                         e.printStackTrace();
+                        logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                     }
 
                 }
@@ -777,16 +785,20 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
                         } catch (SQLException e) {
                             e.printStackTrace();
+                            logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                         }
 
                     }
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                 }
 
             }
@@ -840,8 +852,10 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
                     } catch (SQLException e) {
                         e.printStackTrace();
+                        logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                     }
 
                 }
@@ -863,8 +877,10 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Error in the Customer Registration!", e);
                 }
 
             }
@@ -926,6 +942,7 @@ public class Customer_Registration_Panel extends javax.swing.JPanel {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Customer Selection Process!", e);
             }
 
         }

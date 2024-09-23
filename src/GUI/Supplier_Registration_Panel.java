@@ -10,10 +10,13 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.LoggerUtils;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -25,6 +28,7 @@ public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
     private static Home home = new Home();
     private String companyId;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * @param companyId the companyId to set
@@ -92,8 +96,10 @@ public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Suppliers Error in the Suppliers Registration!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Suppliers Error in the Suppliers Registration!", e);
         }
 
     }
@@ -815,8 +821,10 @@ public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Suppliers Error!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Suppliers Error!", e);
             }
 
         }
@@ -881,8 +889,10 @@ public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Suppliers Error!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Suppliers Error!", e);
             }
 
         }
@@ -974,8 +984,10 @@ public class Supplier_Registration_Panel extends javax.swing.JPanel {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Supplier Selection Process!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Supplier Selection Process!", e);
             }
         }
 

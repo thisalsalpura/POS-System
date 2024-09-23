@@ -13,10 +13,13 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.GRNItem;
+import model.LoggerUtils;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -33,6 +36,7 @@ public class GRN extends javax.swing.JFrame {
     private static Products products;
     private static boolean insert = true;
     private static boolean MaterialExists = false;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form GRN
@@ -63,10 +67,6 @@ public class GRN extends javax.swing.JFrame {
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         jTable1.setDefaultRenderer(Object.class, renderer);
-    }
-
-    GRN(Home home) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // set supplier details
@@ -785,6 +785,7 @@ public class GRN extends javax.swing.JFrame {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add GRN Error!", e);
             }
 
         }
@@ -922,15 +923,17 @@ public class GRN extends javax.swing.JFrame {
                         normalReset();
                         fullReset();
                         generateGRNId();
-                        
+
                         products.loadStock();
 
                     }
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Save GRN Error!", e);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Save GRN Error!", e);
                 }
 
             }

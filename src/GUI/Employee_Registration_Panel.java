@@ -11,6 +11,8 @@ import java.util.Vector;
 import model.MySQL;
 import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +20,7 @@ import javax.swing.ButtonModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.LoggerUtils;
 import raven.toast.Notifications;
 
 /**
@@ -30,6 +33,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
     private static Home home = new Home();
     private static SignIn signin = new SignIn();
     private static boolean canUpdate = false;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form Register_Panel
@@ -85,8 +89,10 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Profiles Error in the Employee Registration!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Profiles Error in the Employee Registration!", e);
         }
 
     }
@@ -136,8 +142,10 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
             type.setModel(dcbm);
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Types Error in the Employee Registration!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Types Error in the Employee Registration!", e);
         }
 
     }
@@ -861,8 +869,10 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
                     } catch (SQLException e) {
                         e.printStackTrace();
+                        logger.log(Level.WARNING, "Error in the Employee Registration!", e);
                     } catch (Exception e) {
                         e.printStackTrace();
+                        logger.log(Level.WARNING, "Error in the Employee Registration!", e);
                     }
 
                 } else {
@@ -871,8 +881,10 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Employee Registration!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Employee Registration!", e);
             }
 
         }
@@ -949,8 +961,10 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Employee Registration!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Employee Registration!", e);
             }
 
         }
@@ -1017,8 +1031,10 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Employee Selection Process!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Employee Selection Process!", e);
             }
 
         }

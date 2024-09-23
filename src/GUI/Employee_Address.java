@@ -10,7 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import model.LoggerUtils;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -29,6 +32,7 @@ public class Employee_Address extends javax.swing.JFrame {
     private int AddOrUpdate;
     private String email;
     public static int backToHomeChange;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form Employee_Address
@@ -73,8 +77,10 @@ public class Employee_Address extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Error in the Sign In!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Error in the Sign In!", e);
         }
 
     }
@@ -99,8 +105,10 @@ public class Employee_Address extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Employee Addresses Error!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Employee Addresses Error!", e);
         }
 
     }
@@ -428,8 +436,10 @@ public class Employee_Address extends javax.swing.JFrame {
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Error in the Employee Address!", e);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Error in the Employee Address!", e);
                 }
 
             }
@@ -485,8 +495,10 @@ public class Employee_Address extends javax.swing.JFrame {
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Error in the Employee Address!", e);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    logger.log(Level.WARNING, "Error in the Employee Address!", e);
                 }
 
             }

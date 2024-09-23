@@ -16,11 +16,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.LoggerUtils;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -41,6 +44,7 @@ public class Products extends javax.swing.JFrame {
     private static boolean canUpdate = false;
     private static boolean loadmaterialExists = false;
     private int uniqueId = 0;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form Products
@@ -117,8 +121,10 @@ public class Products extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Stocks Error!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Stocks Error!", e);
         }
 
     }
@@ -190,8 +196,10 @@ public class Products extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Products Error!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Products Error!", e);
         }
 
     }
@@ -216,8 +224,10 @@ public class Products extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Materials Error!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Materials Error!", e);
         }
 
     }
@@ -1397,8 +1407,10 @@ public class Products extends javax.swing.JFrame {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Materials Error!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Materials Error!", e);
             }
 
         }
@@ -1457,8 +1469,10 @@ public class Products extends javax.swing.JFrame {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Products Error!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Products Error!", e);
             }
 
         }
@@ -1529,8 +1543,10 @@ public class Products extends javax.swing.JFrame {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Products Error!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Add Products Error!", e);
             }
         }
 
@@ -1590,6 +1606,8 @@ public class Products extends javax.swing.JFrame {
 
                 dtm.addRow(vector);
                 jTable3.setModel(dtm);
+
+                selectMaterial.setSelectedIndex(0);
             }
         }
 
@@ -1797,8 +1815,10 @@ public class Products extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Error in the Product Selection Process!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Error in the Product Selection Process!", e);
         }
 
     }

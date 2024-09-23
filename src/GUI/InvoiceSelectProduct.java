@@ -8,11 +8,13 @@ import com.formdev.flatlaf.FlatClientProperties;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import model.GRNItem;
 import model.InvoiceItem;
+import model.LoggerUtils;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -24,6 +26,7 @@ public class InvoiceSelectProduct extends javax.swing.JFrame {
 
     private Invoice invoice;
     private InvoiceItem invoiceItem;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form GRNSelectMaterial
@@ -75,8 +78,10 @@ public class InvoiceSelectProduct extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Products Error!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Products Error!", e);
         }
 
     }
@@ -278,8 +283,10 @@ public class InvoiceSelectProduct extends javax.swing.JFrame {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Product Selection Process!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Product Selection Process!", e);
             }
 
         }

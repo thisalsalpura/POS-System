@@ -8,10 +8,13 @@ import com.formdev.flatlaf.FlatClientProperties;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.GRNItem;
+import model.LoggerUtils;
 import model.MySQL;
 import raven.toast.Notifications;
 
@@ -23,6 +26,7 @@ public class GRNSelectMaterial extends javax.swing.JFrame {
 
     private GRN grn;
     private GRNItem grnItem;
+    private static Logger logger = LoggerUtils.getLogger();
 
     /**
      * Creates new form GRNSelectMaterial
@@ -73,8 +77,10 @@ public class GRNSelectMaterial extends javax.swing.JFrame {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Material Error!", e);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.log(Level.WARNING, "Load Material Error!", e);
         }
 
     }
@@ -274,8 +280,10 @@ public class GRNSelectMaterial extends javax.swing.JFrame {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Material Selection Process!", e);
             } catch (Exception e) {
                 e.printStackTrace();
+                logger.log(Level.WARNING, "Error in the Material Selection Process!", e);
             }
 
         }
