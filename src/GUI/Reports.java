@@ -364,6 +364,7 @@ public class Reports extends javax.swing.JFrame {
 
     private void backLogo1backToHome(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLogo1backToHome
         // back to home
+        reset();
         this.dispose();
         home.setVisible(true);
     }//GEN-LAST:event_backLogo1backToHome
@@ -674,4 +675,10 @@ public class Reports extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    // reset filelds
+    private void reset() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+    }
 }
