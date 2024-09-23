@@ -1352,14 +1352,14 @@ public class Products extends javax.swing.JFrame {
     private void bill_btn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_btn_txtActionPerformed
         // invoice panel load
         this.dispose();
-        Invoice invoice = new Invoice(this);
+        Invoice invoice = new Invoice(home, this);
         invoice.setVisible(true);
     }//GEN-LAST:event_bill_btn_txtActionPerformed
 
     private void billToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billToActionPerformed
         // invoice panel load
         this.dispose();
-        Invoice invoice = new Invoice(this);
+        Invoice invoice = new Invoice(home, this);
         invoice.setVisible(true);
     }//GEN-LAST:event_billToActionPerformed
 

@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import javax.swing.Timer;
 import java.sql.ResultSet;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.LoggerUtils;
@@ -34,6 +35,10 @@ public class Home extends javax.swing.JFrame {
     private static Supplier_Registration supplier_Registration = new Supplier_Registration();
     private static int currentIndex = 0;
     private static FlatSVGIcon[] sliderImages;
+    private static int analyseIndex1 = 0;
+    private static String[] analyseDetails1;
+    private static int analyseIndex2 = 0;
+    private static String[] analyseDetails2;
     private static SignIn signIn;
     private static String user;
     private static String fullName;
@@ -47,6 +52,7 @@ public class Home extends javax.swing.JFrame {
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         init();
         sliderAnimation();
+        summaryUpdate();
         getDateTime();
         setButtonBorderRadius();
 
@@ -129,6 +135,173 @@ public class Home extends javax.swing.JFrame {
 
     }
 
+    // set analyse details
+    public void summaryUpdate() {
+
+        try {
+
+            String title1 = "MOST SELLING PRODUCT TODAY";
+            String title2 = "MONTHLY MOST SELLING PRODUCT";
+            String title3 = "TODAY EARNING";
+            String title4 = "MONTHLY EARNING";
+            String title5 = "MOST ACTIVE CUSTOMER";
+
+            String todayMostSellingProduct = "empty";
+            String monthlyMostSellingProduct = "empty";
+            String todayEarning = "0.0";
+            String monthlyEarning = "0.0";
+            String mostActiveCustomer = "empty";
+
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            String formattedTodayDate = sdf.format(date);
+
+            ResultSet resultSet = MySQL.executeSearch("SELECT `name`, `product_id`, SUM(`qty`) AS `total_sold` FROM `invoice_item` "
+                    + "INNER JOIN `invoice` ON `invoice`.`id` = `invoice_item`.`invoice_id` INNER JOIN `product` ON `product`.`id` = `invoice_item`.`product_id` "
+                    + "WHERE `invoice`.`date` = '" + formattedTodayDate + "' GROUP BY `product_id` ORDER BY `total_sold` DESC LIMIT 1;");
+
+            if (resultSet.next()) {
+
+                todayMostSellingProduct = resultSet.getString("name");
+
+                if (todayMostSellingProduct == null) {
+                    todayMostSellingProduct = "empty";
+                }
+
+            } else {
+
+                todayMostSellingProduct = "empty";
+
+            }
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.add(Calendar.MONTH, -1);
+            Date beforeDate = cal.getTime();
+
+            String formattedBeforeDate = sdf.format(beforeDate);
+
+            ResultSet resultSet1 = MySQL.executeSearch("SELECT `name`, `product_id`, SUM(`qty`) AS `total_sold` FROM `invoice_item` "
+                    + "INNER JOIN `invoice` ON `invoice`.`id` = `invoice_item`.`invoice_id` INNER JOIN `product` ON `product`.`id` = `invoice_item`.`product_id` "
+                    + "WHERE `invoice`.`date` BETWEEN '" + formattedBeforeDate + "' AND '" + formattedTodayDate + "' "
+                    + "GROUP BY `product_id` ORDER BY `total_sold` DESC LIMIT 1;");
+
+            if (resultSet1.next()) {
+
+                monthlyMostSellingProduct = resultSet1.getString("name");
+
+                if (monthlyMostSellingProduct == null) {
+                    monthlyMostSellingProduct = "empty";
+                }
+
+            } else {
+
+                monthlyMostSellingProduct = "empty";
+
+            }
+
+            ResultSet resultSet2 = MySQL.executeSearch("SELECT SUM(`total`) AS `today_earning` FROM `invoice` WHERE `date` = '" + formattedTodayDate + "'");
+
+            if (resultSet2.next()) {
+
+                todayEarning = resultSet2.getString("today_earning");
+
+                if (todayEarning == null) {
+                    todayEarning = "0.0";
+                }
+
+            } else {
+
+                todayEarning = "0.0";
+
+            }
+
+            ResultSet resultSet3 = MySQL.executeSearch("SELECT SUM(`total`) AS `monthly_earning` FROM `invoice` WHERE `date` BETWEEN '" + formattedBeforeDate + "' AND '" + formattedTodayDate + "'");
+
+            if (resultSet3.next()) {
+
+                monthlyEarning = resultSet3.getString("monthly_earning");
+
+                if (monthlyEarning == null) {
+                    monthlyEarning = "0.0";
+                }
+
+            } else {
+
+                monthlyEarning = "0.0";
+
+            }
+
+            ResultSet resultSet4 = MySQL.executeSearch("SELECT `first_name`, `last_name`, `customer_mobile`, COUNT(*) AS `invoice_count` FROM `invoice` INNER JOIN `customer` ON `invoice`.`customer_mobile` = `customer`.`mobile` "
+                    + "GROUP BY `customer_mobile` ORDER BY `invoice_count` DESC LIMIT 1");
+
+            if (resultSet4.next()) {
+
+                String firstName = resultSet4.getString("first_name");
+                String lastName = resultSet4.getString("last_name");
+                mostActiveCustomer = firstName + " " + lastName;
+
+                if (mostActiveCustomer == null) {
+                    mostActiveCustomer = "empty";
+                }
+
+            } else {
+
+                mostActiveCustomer = "empty";
+
+            }
+
+            analyseDetails1 = new String[]{
+                title1,
+                title2,
+                title3,
+                title4,
+                title5
+            };
+
+            analyseDetails2 = new String[]{
+                todayMostSellingProduct,
+                monthlyMostSellingProduct,
+                "Rs. " + todayEarning,
+                "Rs. " + monthlyEarning,
+                mostActiveCustomer
+            };
+
+            jLabel7.setText(analyseDetails1[0]);
+            jLabel8.setText(analyseDetails2[0]);
+
+            Timer analyseTimer = new Timer(3500, new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    analyseIndex1++;
+                    analyseIndex2++;
+
+                    if (analyseIndex1 >= analyseDetails1.length) {
+                        analyseIndex1 = 0;
+                    }
+
+                    if (analyseIndex2 >= analyseDetails2.length) {
+                        analyseIndex2 = 0;
+                    }
+
+                    jLabel7.setText(analyseDetails1[analyseIndex1]);
+                    jLabel8.setText(analyseDetails2[analyseIndex2]);
+                }
+            });
+            analyseTimer.start();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.log(Level.WARNING, "Analyse Generating Error!", e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.log(Level.WARNING, "Analyse Generating Error!", e);
+        }
+
+    }
+
     // set a bordarRadius to button
     private void setButtonBorderRadius() {
         menuButton1.putClientProperty("JButton.buttonType", "roundRect");
@@ -168,6 +341,9 @@ public class Home extends javax.swing.JFrame {
 
         FlatSVGIcon UserIcon = new FlatSVGIcon("resources//user.svg", 49, 38);
         user_logo.setIcon(UserIcon);
+
+        FlatSVGIcon summaryBand = new FlatSVGIcon("resources//summary.svg", 100, 108);
+        jLabel5.setIcon(summaryBand);
 
         FlatSVGIcon LogOutIcon = new FlatSVGIcon("resources//logout.svg", 36, 40);
         logout_logo.setIcon(LogOutIcon);
@@ -230,6 +406,11 @@ public class Home extends javax.swing.JFrame {
         left_arrow = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         jPopupMenu1.setBackground(new java.awt.Color(215, 249, 204));
         jPopupMenu1.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 12)); // NOI18N
@@ -287,7 +468,6 @@ public class Home extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1260, 640));
         setResizable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -611,21 +791,68 @@ public class Home extends javax.swing.JFrame {
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(121, 203, 96), 3, true));
         jLabel3.setOpaque(true);
 
+        jLabel6.setBackground(new java.awt.Color(204, 229, 255));
+        jLabel6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 26)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText(" SUMMARY");
+        jLabel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(121, 203, 96), 3, true));
+        jLabel6.setOpaque(true);
+
+        jPanel9.setBackground(new java.awt.Color(121, 203, 96));
+        jPanel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 3, true));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel7.setFont(new java.awt.Font("Retro Signed", 0, 45)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel8.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 20)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 349, Short.MAX_VALUE)
                         .addComponent(left_arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(right_arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(right_arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(7, 7, 7))
         );
         jPanel7Layout.setVerticalGroup(
@@ -639,9 +866,13 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 13, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 14, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         panel_loader.setViewportView(jPanel7);
@@ -726,14 +957,14 @@ public class Home extends javax.swing.JFrame {
     private void bill_btn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_btn_txtActionPerformed
         // invoice panel load
         this.dispose();
-        Invoice invoice = new Invoice(products);
+        Invoice invoice = new Invoice(this, products);
         invoice.setVisible(true);
     }//GEN-LAST:event_bill_btn_txtActionPerformed
 
     private void billToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billToActionPerformed
         // invoice panel load
         this.dispose();
-        Invoice invoice = new Invoice(products);
+        Invoice invoice = new Invoice(this, products);
         invoice.setVisible(true);
     }//GEN-LAST:event_billToActionPerformed
 
@@ -811,6 +1042,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -824,6 +1059,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JButton left_arrow;
     private javax.swing.JLabel logo;

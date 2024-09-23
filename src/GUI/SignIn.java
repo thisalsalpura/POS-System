@@ -26,7 +26,7 @@ public class SignIn extends javax.swing.JFrame {
     private static Home home = new Home();
     private static Products products = new Products();
     private static GRN grn = new GRN(products);
-    private static Invoice invoice = new Invoice(products);
+    private static Invoice invoice = new Invoice(home, products);
     public String user;
     private static Logger logger = LoggerUtils.getLogger();
 

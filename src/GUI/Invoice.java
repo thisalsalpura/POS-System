@@ -37,7 +37,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 public class Invoice extends javax.swing.JFrame {
 
     private static HashMap<String, Integer> pmethods = new HashMap<>();
-    private static Home home = new Home();
+    private static Home home;
     private static InvoiceItem invoiceItem = new InvoiceItem();
     private static SignIn signIn;
     private static String user;
@@ -53,8 +53,9 @@ public class Invoice extends javax.swing.JFrame {
     /**
      * Creates new form Invoice
      */
-    public Invoice(Products products) {
+    public Invoice(Home home, Products products) {
         this.products = products;
+        this.home = home;
         initComponents();
         this.setExtendedState(Home.MAXIMIZED_BOTH);
         init();
@@ -1189,6 +1190,7 @@ public class Invoice extends javax.swing.JFrame {
                             calTotal();
 
                             products.loadStock();
+                            home.summaryUpdate();
 
                         }
 
