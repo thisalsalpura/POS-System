@@ -10,12 +10,11 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.GRNItem;
 import model.LoggerUtils;
 import model.MySQL;
+import model.customizedTable;
 import raven.toast.Notifications;
 
 /**
@@ -41,11 +40,9 @@ public class GRNSelectMaterial extends javax.swing.JFrame {
         // set notification position
         Notifications.getInstance();
 
-        // set the table details center
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        jTable1.setDefaultRenderer(Object.class, renderer);
+        // customize the table
+        customizedTable.TableStyle(jTable1);
+        customizedTable.centeredValues(jTable1);
     }
 
     private void styleTheTextFieldsAndButtons() {

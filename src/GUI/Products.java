@@ -19,12 +19,11 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.LoggerUtils;
 import model.MySQL;
+import model.customizedTable;
 import raven.toast.Notifications;
 
 /**
@@ -71,13 +70,15 @@ public class Products extends javax.swing.JFrame {
         Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icon.png"));
         this.setIconImage(image);
 
-        // set the table details center
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        // customize the table
+        customizedTable.TableStyle(jTable1);
+        customizedTable.centeredValues(jTable1);
 
-        jTable1.setDefaultRenderer(Object.class, renderer);
-        jTable2.setDefaultRenderer(Object.class, renderer);
-        jTable3.setDefaultRenderer(Object.class, renderer);
+        customizedTable.TableStyle(jTable2);
+        customizedTable.centeredValues(jTable2);
+
+        customizedTable.TableStyle(jTable3);
+        customizedTable.centeredValues(jTable3);
     }
 
     // highlited the current page button

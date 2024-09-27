@@ -17,10 +17,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonModel;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.LoggerUtils;
+import model.customizedTable;
 import raven.toast.Notifications;
 
 /**
@@ -52,11 +51,9 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
         update.setEnabled(false);
         addressBtn.setEnabled(false);
 
-        // set the table details center
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        jTable1.setDefaultRenderer(Object.class, renderer);
+        // customize the table
+        customizedTable.TableStyle(jTable1);
+        customizedTable.centeredValues(jTable1);
     }
 
     // load profiles to table

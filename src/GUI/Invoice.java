@@ -9,8 +9,6 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.SQLException;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import raven.toast.Notifications;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -28,6 +26,7 @@ import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.LoggerUtils;
+import model.customizedTable;
 import net.sf.jasperreports.engine.JasperExportManager;
 
 /**
@@ -71,11 +70,9 @@ public class Invoice extends javax.swing.JFrame {
         Image image = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/icon.png"));
         this.setIconImage(image);
 
-        // set the table details center
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        jTable1.setDefaultRenderer(Object.class, renderer);
+        // customize the table
+        customizedTable.TableStyle(jTable1);
+        customizedTable.centeredValues(jTable1);
 
         // set disable buttons
         total_lable.setEnabled(false);
