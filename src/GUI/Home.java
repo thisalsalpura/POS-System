@@ -43,6 +43,7 @@ public class Home extends javax.swing.JFrame {
     private static String user;
     private static String fullName;
     private static Logger logger = LoggerUtils.getLogger();
+    private static String employeeType;
 
     /**
      * Creates new form Home
@@ -76,6 +77,29 @@ public class Home extends javax.swing.JFrame {
         this.signIn = signIn;
         if (!(this.signIn.getUser() == null)) {
             user = this.signIn.getUser();
+
+            try {
+
+                ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `employee` WHERE `email` = '" + user + "'");
+
+                if (resultSet.next()) {
+                    String empType = resultSet.getString("employee_type_id");
+
+                    if (empType.equals("1")) {
+                        employeeType = "Cashier";
+                    } else if (empType.equals("2")) {
+                        employeeType = "Admin";
+                    }
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                logger.log(Level.WARNING, "Something went wrong!", e);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.log(Level.WARNING, "Something went wrong!", e);
+            }
+
             setUserName();
         }
     }
@@ -376,6 +400,8 @@ public class Home extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -466,6 +492,26 @@ public class Home extends javax.swing.JFrame {
             }
         });
         jPopupMenu1.add(jMenuItem5);
+
+        jMenuItem6.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 10)); // NOI18N
+        jMenuItem6.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItem6.setText("Reports");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem6);
+
+        jMenuItem7.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 10)); // NOI18N
+        jMenuItem7.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItem7.setText("Invoice");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem7);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -924,9 +970,13 @@ public class Home extends javax.swing.JFrame {
 
     private void menuButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton2ActionPerformed
         // products panel load
-        this.dispose();
-        products.setVisible(true);
-        products.highlitedTheButton();
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            products.setVisible(true);
+            products.highlitedTheButton();
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_menuButton2ActionPerformed
 
     private void menuButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton3ActionPerformed
@@ -937,21 +987,33 @@ public class Home extends javax.swing.JFrame {
 
     private void menuButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton4ActionPerformed
         // supplier panel load
-        this.dispose();
-        supplier_Registration.setVisible(true);
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            supplier_Registration.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_menuButton4ActionPerformed
 
     private void menuButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton5ActionPerformed
         // GRN panel load
-        this.dispose();
-        GRN grn = new GRN(products);
-        grn.setVisible(true);
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            GRN grn = new GRN(products);
+            grn.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_menuButton5ActionPerformed
 
     private void menuButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton6ActionPerformed
         // reports panel load
-        this.dispose();
-        reports.setVisible(true);
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            reports.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_menuButton6ActionPerformed
 
     private void bill_btn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_btn_txtActionPerformed
@@ -970,8 +1032,12 @@ public class Home extends javax.swing.JFrame {
 
     private void user_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_logoMouseClicked
         // go to register
-        this.dispose();
-        register.setVisible(true);
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            register.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_user_logoMouseClicked
 
     private void logout_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logout_logoMouseClicked
@@ -996,14 +1062,23 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // go to register
-        this.dispose();
-        register.setVisible(true);
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            register.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // go to products & stock
-        this.dispose();
-        products.setVisible(true);
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            products.setVisible(true);
+            products.highlitedTheButton();
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -1014,15 +1089,23 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // go to suppliers
-        this.dispose();
-        supplier_Registration.setVisible(true);
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            supplier_Registration.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // go to grn
-        this.dispose();
-        GRN grn = new GRN(products);
-        grn.setVisible(true);
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            GRN grn = new GRN(products);
+            grn.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
@@ -1033,6 +1116,23 @@ public class Home extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_formMouseReleased
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // reports panel load
+        if (employeeType.equals("Admin")) {
+            this.dispose();
+            reports.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Admin can access this page!");
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // invoice panel load
+        this.dispose();
+        Invoice invoice = new Invoice(this, products);
+        invoice.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton billTo;
@@ -1051,6 +1151,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
