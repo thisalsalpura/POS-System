@@ -438,6 +438,8 @@ public class Reports extends javax.swing.JFrame {
                     String fileName = folderPath + email + "_details.pdf";
 
                     JasperExportManager.exportReportToPdfFile(report, fileName);
+                    
+                    jTextField1.setText("");
 
                 } else {
                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Employee Email Address!");
@@ -490,6 +492,8 @@ public class Reports extends javax.swing.JFrame {
                     String fileName = folderPath + email + "_details.pdf";
 
                     JasperExportManager.exportReportToPdfFile(report, fileName);
+                    
+                    jTextField2.setText("");
 
                 } else {
                     Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Invalid Supplier Email Address!");

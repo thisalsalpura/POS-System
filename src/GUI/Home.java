@@ -56,6 +56,7 @@ public class Home extends javax.swing.JFrame {
         summaryUpdate();
         getDateTime();
         setButtonBorderRadius();
+        getEmployeeRole();
 
         // set notification position
         Notifications.getInstance();
@@ -77,31 +78,35 @@ public class Home extends javax.swing.JFrame {
         this.signIn = signIn;
         if (!(this.signIn.getUser() == null)) {
             user = this.signIn.getUser();
-
-            try {
-
-                ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `employee` WHERE `email` = '" + user + "'");
-
-                if (resultSet.next()) {
-                    String empType = resultSet.getString("employee_type_id");
-
-                    if (empType.equals("1")) {
-                        employeeType = "Cashier";
-                    } else if (empType.equals("2")) {
-                        employeeType = "Admin";
-                    }
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                logger.log(Level.WARNING, "Something went wrong!", e);
-            } catch (Exception e) {
-                e.printStackTrace();
-                logger.log(Level.WARNING, "Something went wrong!", e);
-            }
-
             setUserName();
         }
+    }
+
+    // get employee role
+    private void getEmployeeRole() {
+
+        try {
+
+            ResultSet resultSet = MySQL.executeSearch("SELECT * FROM `employee` WHERE `email` = '" + user + "'");
+
+            if (resultSet.next()) {
+                String empType = resultSet.getString("employee_type_id");
+
+                if (empType.equals("1")) {
+                    employeeType = "Cashier";
+                } else if (empType.equals("2")) {
+                    employeeType = "Admin";
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.log(Level.WARNING, "Something went wrong!", e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.log(Level.WARNING, "Something went wrong!", e);
+        }
+
     }
 
     // store the email staticly
@@ -970,6 +975,7 @@ public class Home extends javax.swing.JFrame {
 
     private void menuButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton2ActionPerformed
         // products panel load
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             products.setVisible(true);
@@ -987,6 +993,7 @@ public class Home extends javax.swing.JFrame {
 
     private void menuButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton4ActionPerformed
         // supplier panel load
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             supplier_Registration.setVisible(true);
@@ -997,6 +1004,7 @@ public class Home extends javax.swing.JFrame {
 
     private void menuButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton5ActionPerformed
         // GRN panel load
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             GRN grn = new GRN(products);
@@ -1008,6 +1016,7 @@ public class Home extends javax.swing.JFrame {
 
     private void menuButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton6ActionPerformed
         // reports panel load
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             reports.setVisible(true);
@@ -1032,6 +1041,7 @@ public class Home extends javax.swing.JFrame {
 
     private void user_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_logoMouseClicked
         // go to register
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             register.setVisible(true);
@@ -1062,6 +1072,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // go to register
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             register.setVisible(true);
@@ -1072,6 +1083,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // go to products & stock
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             products.setVisible(true);
@@ -1089,6 +1101,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // go to suppliers
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             supplier_Registration.setVisible(true);
@@ -1099,6 +1112,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // go to grn
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             GRN grn = new GRN(products);
@@ -1119,6 +1133,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // reports panel load
+        getEmployeeRole();
         if (employeeType.equals("Admin")) {
             this.dispose();
             reports.setVisible(true);

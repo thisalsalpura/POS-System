@@ -426,6 +426,7 @@ public class Employee_Address extends javax.swing.JFrame {
 
                         if (registerPanel != null) {
                             registerPanel.resetField();
+                            registerPanel.loadProfiles();
                         }
 
                         this.dispose();
@@ -487,6 +488,7 @@ public class Employee_Address extends javax.swing.JFrame {
 
                         if (registerPanel != null) {
                             registerPanel.resetField();
+                            registerPanel.loadProfiles();
                         }
 
                         this.dispose();

@@ -945,28 +945,33 @@ public class Invoice extends javax.swing.JFrame {
         // get a values to fields
         int row = jTable1.getSelectedRow();
 
-        String productID = String.valueOf(jTable1.getValueAt(row, 0));
-        String productName = String.valueOf(jTable1.getValueAt(row, 1));
-        String productPrice = String.valueOf(jTable1.getValueAt(row, 2));
-        String buyingQty = String.valueOf(jTable1.getValueAt(row, 3));
+        if (row != -1) {
 
-        jLabel11.setText(productID);
-        jLabel19.setText(productName);
-        jLabel15.setText(productPrice);
-        qty.setText(buyingQty);
+            String productID = String.valueOf(jTable1.getValueAt(row, 0));
+            String productName = String.valueOf(jTable1.getValueAt(row, 1));
+            String productPrice = String.valueOf(jTable1.getValueAt(row, 2));
+            String buyingQty = String.valueOf(jTable1.getValueAt(row, 3));
 
-        jTable1.setEnabled(false);
+            jLabel11.setText(productID);
+            jLabel19.setText(productName);
+            jLabel15.setText(productPrice);
+            qty.setText(buyingQty);
 
-        if (evt.getClickCount() == 2) {
+            jTable1.setEnabled(false);
 
-            if (row != -1) {
-                DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-                dtm.removeRow(row);
-                calTotal();
-                calPoints();
-                calBalance();
-            } else {
-                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Row!");
+            if (evt.getClickCount() == 2) {
+
+                if (row != -1) {
+                    DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+                    dtm.removeRow(row);
+                    calTotal();
+                    calPoints();
+                    calBalance();
+                    jTable1.setEnabled(true);
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Row!");
+                }
+
             }
 
         }

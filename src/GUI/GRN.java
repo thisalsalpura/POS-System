@@ -801,27 +801,32 @@ public class GRN extends javax.swing.JFrame {
         // get a values to fields
         int row = jTable1.getSelectedRow();
 
-        String materialID = String.valueOf(jTable1.getValueAt(row, 1));
-        String materialName = String.valueOf(jTable1.getValueAt(row, 2));
-        String GRNQty = String.valueOf(jTable1.getValueAt(row, 3));
-        String GRNUnitPrice = String.valueOf(jTable1.getValueAt(row, 4));
+        if (row != -1) {
 
-        jLabel11.setText(materialID);
-        jLabel15.setText(materialName);
-        qty.setText(GRNQty);
-        unit_price.setText(GRNUnitPrice);
+            String materialID = String.valueOf(jTable1.getValueAt(row, 1));
+            String materialName = String.valueOf(jTable1.getValueAt(row, 2));
+            String GRNQty = String.valueOf(jTable1.getValueAt(row, 3));
+            String GRNUnitPrice = String.valueOf(jTable1.getValueAt(row, 4));
 
-        jTable1.setEnabled(false);
+            jLabel11.setText(materialID);
+            jLabel15.setText(materialName);
+            qty.setText(GRNQty);
+            unit_price.setText(GRNUnitPrice);
 
-        if (evt.getClickCount() == 2) {
+            jTable1.setEnabled(false);
 
-            if (row != -1) {
-                DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-                dtm.removeRow(row);
-                calTotal();
-                getBalance();
-            } else {
-                Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Row!");
+            if (evt.getClickCount() == 2) {
+
+                if (row != -1) {
+                    DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+                    dtm.removeRow(row);
+                    calTotal();
+                    getBalance();
+                    jTable1.setEnabled(true);
+                } else {
+                    Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Please select a Row!");
+                }
+
             }
 
         }
