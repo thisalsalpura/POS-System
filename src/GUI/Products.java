@@ -307,25 +307,25 @@ public class Products extends javax.swing.JFrame {
 
     private void init() {
         // icons, logos & images load
-        FlatSVGIcon icon = new FlatSVGIcon("resources//bubble_tea.svg", logo.getWidth(), logo.getHeight());
+        FlatSVGIcon icon = new FlatSVGIcon(this.getClass().getResource("/resources/bubble_tea.svg"));
         logo.setIcon(icon);
 
-        FlatSVGIcon UserIcon = new FlatSVGIcon("resources//user.svg", 49, 38);
+        FlatSVGIcon UserIcon = new FlatSVGIcon(this.getClass().getResource("/resources/user.svg"));
         user_logo.setIcon(UserIcon);
 
-        FlatSVGIcon LogOutIcon = new FlatSVGIcon("resources//logout.svg", 36, 40);
+        FlatSVGIcon LogOutIcon = new FlatSVGIcon(this.getClass().getResource("/resources/logout.svg"));
         logout_logo.setIcon(LogOutIcon);
 
-        FlatSVGIcon menuIcon = new FlatSVGIcon("resources//menu_logo.svg", 24, 30);
+        FlatSVGIcon menuIcon = new FlatSVGIcon(this.getClass().getResource("/resources/menu_logo.svg"));
         menu_logo.setIcon(menuIcon);
 
-        FlatSVGIcon billToArrow = new FlatSVGIcon("resources//arrow_right.svg", 20, 20);
+        FlatSVGIcon billToArrow = new FlatSVGIcon(this.getClass().getResource("/resources/arrow_right.svg"));
         billTo.setIcon(billToArrow);
 
-        FlatSVGIcon star = new FlatSVGIcon("resources//star.svg", 78, 74);
+        FlatSVGIcon star = new FlatSVGIcon(this.getClass().getResource("/resources/star.svg"));
         star_label.setIcon(star);
 
-        FlatSVGIcon add = new FlatSVGIcon("resources//add.svg", 45, 44);
+        FlatSVGIcon add = new FlatSVGIcon(this.getClass().getResource("/resources/add.svg"));
         addMaterialBtn.setIcon(add);
     }
 
@@ -1191,6 +1191,8 @@ public class Products extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(204, 229, 255));
         jPanel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(121, 203, 96), 3, true));
+
+        star_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel11.setFont(new java.awt.Font("Retro Signed", 0, 72)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));

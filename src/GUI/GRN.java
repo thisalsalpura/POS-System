@@ -134,7 +134,7 @@ public class GRN extends javax.swing.JFrame {
 
     private void init() {
         // icons, logos & images load
-        FlatSVGIcon back = new FlatSVGIcon("resources//backTo.svg", 38, 34);
+        FlatSVGIcon back = new FlatSVGIcon(this.getClass().getResource("/resources/backTo.svg"));
         back_label.setIcon(back);
     }
 
@@ -224,6 +224,8 @@ public class GRN extends javax.swing.JFrame {
                 backLogobackToHome(evt);
             }
         });
+
+        back_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jLabel2.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));

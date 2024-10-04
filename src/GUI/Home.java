@@ -145,9 +145,9 @@ public class Home extends javax.swing.JFrame {
 
         // icons, logos & images load
         sliderImages = new FlatSVGIcon[]{
-            new FlatSVGIcon("resources//slider1.svg", slider.getWidth(), slider.getHeight()),
-            new FlatSVGIcon("resources//slider2.svg", slider.getWidth(), slider.getHeight()),
-            new FlatSVGIcon("resources//slider3.svg", slider.getWidth(), slider.getHeight())
+            new FlatSVGIcon(this.getClass().getResource("/resources/slider1.svg")),
+            new FlatSVGIcon(this.getClass().getResource("/resources/slider2.svg")),
+            new FlatSVGIcon(this.getClass().getResource("/resources/slider3.svg"))
         };
         slider.setIcon(sliderImages[0]);
 
@@ -365,26 +365,26 @@ public class Home extends javax.swing.JFrame {
 
     private void init() {
         // icons, logos & images load
-        FlatSVGIcon icon = new FlatSVGIcon("resources//bubble_tea.svg", logo.getWidth(), logo.getHeight());
+        FlatSVGIcon icon = new FlatSVGIcon(this.getClass().getResource("/resources/bubble_tea.svg"));
         logo.setIcon(icon);
 
-        FlatSVGIcon UserIcon = new FlatSVGIcon("resources//user.svg", 49, 38);
+        FlatSVGIcon UserIcon = new FlatSVGIcon(this.getClass().getResource("/resources/user.svg"));
         user_logo.setIcon(UserIcon);
 
-        FlatSVGIcon summaryBand = new FlatSVGIcon("resources//summary.svg", 100, 108);
+        FlatSVGIcon summaryBand = new FlatSVGIcon(this.getClass().getResource("/resources/summary.svg"));
         jLabel5.setIcon(summaryBand);
 
-        FlatSVGIcon LogOutIcon = new FlatSVGIcon("resources//logout.svg", 36, 40);
+        FlatSVGIcon LogOutIcon = new FlatSVGIcon(this.getClass().getResource("/resources/logout.svg"));
         logout_logo.setIcon(LogOutIcon);
 
-        FlatSVGIcon menuIcon = new FlatSVGIcon("resources//menu_logo.svg", 24, 30);
+        FlatSVGIcon menuIcon = new FlatSVGIcon(this.getClass().getResource("/resources/menu_logo.svg"));
         menu_logo.setIcon(menuIcon);
 
-        FlatSVGIcon billToArrow = new FlatSVGIcon("resources//arrow_right.svg", 20, 20);
+        FlatSVGIcon billToArrow = new FlatSVGIcon(this.getClass().getResource("/resources/arrow_right.svg"));
         billTo.setIcon(billToArrow);
 
-        FlatSVGIcon r_arrow = new FlatSVGIcon("resources//arrow_right.svg", 15, 15);
-        FlatSVGIcon l_arrow = new FlatSVGIcon("resources//arrow_left.svg", 15, 15);
+        FlatSVGIcon r_arrow = new FlatSVGIcon(this.getClass().getResource("/resources/arrow_right.svg"));
+        FlatSVGIcon l_arrow = new FlatSVGIcon(this.getClass().getResource("/resources/arrow_left.svg"));
 
         right_arrow.setIcon(r_arrow);
         left_arrow.setIcon(l_arrow);
@@ -536,6 +536,8 @@ public class Home extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("MENU");
+
+        menu_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -724,6 +726,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(121, 203, 95));
 
+        user_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         user_logo.setToolTipText("Register");
         user_logo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         user_logo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -801,6 +804,7 @@ public class Home extends javax.swing.JFrame {
         panel_loader.setRowHeaderView(null);
 
         slider.setBackground(new java.awt.Color(121, 203, 96));
+        slider.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         slider.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 2, true));
         slider.setOpaque(true);
 
@@ -902,8 +906,8 @@ public class Home extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(right_arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(7, 7, 7))
         );
         jPanel7Layout.setVerticalGroup(
