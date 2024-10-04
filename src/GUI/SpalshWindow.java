@@ -32,7 +32,7 @@ public class SpalshWindow extends javax.swing.JFrame {
 
     private void init() {
         // icons, logos & images load
-        FlatSVGIcon coverImage = new FlatSVGIcon("resources//spalsh_cover.svg", spalsh_logo.getWidth(), spalsh_logo.getHeight());
+        FlatSVGIcon coverImage = new FlatSVGIcon(this.getClass().getResource("/resources/spalsh_cover.svg"));
         spalsh_logo.setIcon(coverImage);
     }
 
