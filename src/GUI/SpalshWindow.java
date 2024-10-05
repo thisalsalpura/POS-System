@@ -89,6 +89,8 @@ public class SpalshWindow extends javax.swing.JFrame {
         spalsh_logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Splasher");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setUndecorated(true);
         setResizable(false);
 

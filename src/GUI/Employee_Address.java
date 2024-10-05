@@ -158,6 +158,8 @@ public class Employee_Address extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Employee_Address");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setUndecorated(true);
         setResizable(false);
 

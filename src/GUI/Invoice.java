@@ -253,6 +253,8 @@ public class Invoice extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Invoice");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setResizable(false);
 
         jScrollPane1.setBorder(null);

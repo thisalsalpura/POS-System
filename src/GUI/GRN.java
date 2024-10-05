@@ -190,6 +190,8 @@ public class GRN extends javax.swing.JFrame {
         clearall = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GRN");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setResizable(false);
 
         jScrollPane2.setBorder(null);

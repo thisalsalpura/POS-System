@@ -126,8 +126,9 @@ public class Supplier_Company extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Supplier_Company");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(672, 600));
         setResizable(false);
 
         jScrollPane2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 5, true));

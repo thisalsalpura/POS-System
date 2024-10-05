@@ -105,6 +105,8 @@ public class Reports extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Reports");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setResizable(false);
 
         jScrollPane1.setBorder(null);

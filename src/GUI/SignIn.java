@@ -81,6 +81,8 @@ public class SignIn extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sign_In");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setUndecorated(true);
         setResizable(false);
 

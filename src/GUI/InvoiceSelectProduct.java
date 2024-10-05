@@ -102,6 +102,8 @@ public class InvoiceSelectProduct extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Invoice_Select_Product");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setUndecorated(true);
         setResizable(false);
 

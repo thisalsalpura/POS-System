@@ -519,6 +519,8 @@ public class Home extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem7);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Home");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setResizable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {

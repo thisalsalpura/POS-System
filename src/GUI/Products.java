@@ -408,6 +408,8 @@ public class Products extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Products");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(215, 249, 204));

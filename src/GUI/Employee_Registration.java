@@ -51,7 +51,8 @@ public class Employee_Registration extends javax.swing.JFrame {
         register_panel_loader = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1260, 1403));
+        setTitle("Employee_Registration");
+        setFont(new java.awt.Font("JetBrains Mono", 0, 8)); // NOI18N
         setResizable(false);
 
         register_panel_loader.setBorder(null);
