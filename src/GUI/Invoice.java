@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import model.LoggerUtils;
 import model.customizedTable;
 import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 /**
  *
@@ -1190,6 +1191,8 @@ public class Invoice extends javax.swing.JFrame {
                             String fileName = folderPath + invoice_number + "_" + invoiceDate + ".pdf";
 
                             JasperExportManager.exportReportToPdfFile(report, fileName);
+                            
+                            JasperPrintManager.printReport(report, true);
 
                             Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 3500l, "Invoice saved Successfully!");
                             fullReset();

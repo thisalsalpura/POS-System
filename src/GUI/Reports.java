@@ -23,6 +23,7 @@ import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.view.JasperViewer;
 import raven.toast.Notifications;
 
@@ -399,6 +400,8 @@ public class Reports extends javax.swing.JFrame {
             String fileName = folderPath + stockDate + "_stock_report.pdf";
 
             JasperExportManager.exportReportToPdfFile(report, fileName);
+            
+            JasperPrintManager.printReport(report, true);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -442,6 +445,8 @@ public class Reports extends javax.swing.JFrame {
                     String fileName = folderPath + email + "_details.pdf";
 
                     JasperExportManager.exportReportToPdfFile(report, fileName);
+                    
+                    JasperPrintManager.printReport(report, true);
                     
                     jTextField1.setText("");
 
@@ -496,6 +501,8 @@ public class Reports extends javax.swing.JFrame {
                     String fileName = folderPath + email + "_details.pdf";
 
                     JasperExportManager.exportReportToPdfFile(report, fileName);
+                    
+                    JasperPrintManager.printReport(report, true);
                     
                     jTextField2.setText("");
 
@@ -650,6 +657,8 @@ public class Reports extends javax.swing.JFrame {
             String fileName = folderPath + formattedTodayDate + "_sales_report.pdf";
 
             JasperExportManager.exportReportToPdfFile(report, fileName);
+            
+            JasperPrintManager.printReport(report, true);
 
         } catch (SQLException e) {
             e.printStackTrace();
