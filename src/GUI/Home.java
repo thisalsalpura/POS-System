@@ -1033,16 +1033,26 @@ public class Home extends javax.swing.JFrame {
 
     private void bill_btn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_btn_txtActionPerformed
         // invoice panel load
-        this.dispose();
-        Invoice invoice = new Invoice(this, products);
-        invoice.setVisible(true);
+        getEmployeeRole();
+        if (employeeType.equals("Cashier")) {
+            this.dispose();
+            Invoice invoice = new Invoice(this, products);
+            invoice.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Cashier can access this page!");
+        }
     }//GEN-LAST:event_bill_btn_txtActionPerformed
 
     private void billToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billToActionPerformed
         // invoice panel load
-        this.dispose();
-        Invoice invoice = new Invoice(this, products);
-        invoice.setVisible(true);
+        getEmployeeRole();
+        if (employeeType.equals("Cashier")) {
+            this.dispose();
+            Invoice invoice = new Invoice(this, products);
+            invoice.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Cashier can access this page!");
+        }
     }//GEN-LAST:event_billToActionPerformed
 
     private void user_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_logoMouseClicked
@@ -1059,7 +1069,6 @@ public class Home extends javax.swing.JFrame {
     private void logout_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logout_logoMouseClicked
         // go to login
         this.dispose();
-        Employee_Address.backToHomeChange = 0;
         jLabel4.setText("");
         signIn.setVisible(true);
     }//GEN-LAST:event_logout_logoMouseClicked
@@ -1150,9 +1159,14 @@ public class Home extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // invoice panel load
-        this.dispose();
-        Invoice invoice = new Invoice(this, products);
-        invoice.setVisible(true);
+        getEmployeeRole();
+        if (employeeType.equals("Cashier")) {
+            this.dispose();
+            Invoice invoice = new Invoice(this, products);
+            invoice.setVisible(true);
+        } else {
+            Notifications.getInstance().show(Notifications.Type.ERROR, Notifications.Location.TOP_RIGHT, 3500l, "Only Cashier can access this page!");
+        }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

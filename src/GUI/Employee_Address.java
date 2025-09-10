@@ -31,7 +31,6 @@ public class Employee_Address extends javax.swing.JFrame {
     private Employee_Registration_Panel registerPanel;
     private int AddOrUpdate;
     private String email;
-    public static int backToHomeChange;
     private static Logger logger = LoggerUtils.getLogger();
 
     /**
@@ -415,12 +414,6 @@ public class Employee_Address extends javax.swing.JFrame {
 
                         Notifications.getInstance().show(Notifications.Type.SUCCESS, Notifications.Location.TOP_RIGHT, 3500l, "Employee Address added Successfully!");
 
-                        signIn.setUser(email);
-
-                        home.getUserEmail(signIn);
-
-                        backToHomeChange = 1;
-
                         // Close this frames, re-enable the parent window and visible the home
                         if (parentWindow != null) {
                             parentWindow.setEnabled(true);
@@ -432,8 +425,6 @@ public class Employee_Address extends javax.swing.JFrame {
                         }
 
                         this.dispose();
-                        parentWindow.dispose();
-                        home.setVisible(true);
 
                     }
 

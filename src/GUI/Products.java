@@ -319,9 +319,6 @@ public class Products extends javax.swing.JFrame {
         FlatSVGIcon menuIcon = new FlatSVGIcon(this.getClass().getResource("/resources/menu_logo.svg"));
         menu_logo.setIcon(menuIcon);
 
-        FlatSVGIcon billToArrow = new FlatSVGIcon(this.getClass().getResource("/resources/arrow_right.svg"));
-        billTo.setIcon(billToArrow);
-
         FlatSVGIcon star = new FlatSVGIcon(this.getClass().getResource("/resources/star.svg"));
         star_label.setIcon(star);
 
@@ -349,9 +346,6 @@ public class Products extends javax.swing.JFrame {
         menuButton5 = new javax.swing.JButton();
         menuButton6 = new javax.swing.JButton();
         menuButton2 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        bill_btn_txt = new javax.swing.JButton();
-        billTo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -501,49 +495,6 @@ public class Products extends javax.swing.JFrame {
             }
         });
 
-        jPanel6.setBackground(new java.awt.Color(121, 203, 96));
-        jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 229, 255), 2, true));
-
-        bill_btn_txt.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
-        bill_btn_txt.setForeground(new java.awt.Color(0, 0, 0));
-        bill_btn_txt.setText("Invoice");
-        bill_btn_txt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bill_btn_txt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bill_btn_txtActionPerformed(evt);
-            }
-        });
-
-        billTo.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 18)); // NOI18N
-        billTo.setForeground(new java.awt.Color(0, 0, 0));
-        billTo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        billTo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billToActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(bill_btn_txt)
-                .addGap(0, 0, 0)
-                .addComponent(billTo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(billTo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bill_btn_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
-        );
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -564,10 +515,6 @@ public class Products extends javax.swing.JFrame {
                     .addComponent(menuButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(menuButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -586,9 +533,7 @@ public class Products extends javax.swing.JFrame {
                 .addComponent(menuButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(menuButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(121, 203, 95));
@@ -1273,7 +1218,7 @@ public class Products extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1349,24 +1294,8 @@ public class Products extends javax.swing.JFrame {
     }//GEN-LAST:event_menuButton6ActionPerformed
 
     private void menuButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButton2ActionPerformed
-        // reports panel load
-        this.dispose();
-        reports.setVisible(true);
+        // current JFrame
     }//GEN-LAST:event_menuButton2ActionPerformed
-
-    private void bill_btn_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_btn_txtActionPerformed
-        // invoice panel load
-        this.dispose();
-        Invoice invoice = new Invoice(home, this);
-        invoice.setVisible(true);
-    }//GEN-LAST:event_bill_btn_txtActionPerformed
-
-    private void billToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billToActionPerformed
-        // invoice panel load
-        this.dispose();
-        Invoice invoice = new Invoice(home, this);
-        invoice.setVisible(true);
-    }//GEN-LAST:event_billToActionPerformed
 
     private void user_logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_logoMouseClicked
         // go to register
@@ -1381,7 +1310,6 @@ public class Products extends javax.swing.JFrame {
         firstClear();
         secondClear();
         this.dispose();
-        Employee_Address.backToHomeChange = 0;
         signIn.setVisible(true);
     }//GEN-LAST:event_logout_logoMouseClicked
 
@@ -1684,8 +1612,6 @@ public class Products extends javax.swing.JFrame {
     private javax.swing.JButton add;
     private javax.swing.JButton addMaterialBtn;
     private javax.swing.JTextField addMaterialText;
-    private javax.swing.JButton billTo;
-    private javax.swing.JButton bill_btn_txt;
     private javax.swing.JButton clear_all_products;
     private javax.swing.JButton clear_all_stocks;
     private javax.swing.JLabel date_label;
@@ -1718,7 +1644,6 @@ public class Products extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;

@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import static GUI.Employee_Address.backToHomeChange;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -58,7 +57,6 @@ public class SignIn extends javax.swing.JFrame {
         password.putClientProperty(FlatClientProperties.TEXT_FIELD_SHOW_CLEAR_BUTTON, true);
 
         signinbtn.putClientProperty("JButton.buttonType", "roundRect");
-        registerbtn.putClientProperty("JButton.buttonType", "roundRect");
     }
 
     /**
@@ -77,7 +75,6 @@ public class SignIn extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         signinbtn = new javax.swing.JButton();
-        registerbtn = new javax.swing.JButton();
         password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,16 +114,6 @@ public class SignIn extends javax.swing.JFrame {
             }
         });
 
-        registerbtn.setFont(new java.awt.Font("JetBrains Mono ExtraBold", 1, 22)); // NOI18N
-        registerbtn.setForeground(new java.awt.Color(0, 0, 0));
-        registerbtn.setText("Register");
-        registerbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        registerbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerbtnActionPerformed(evt);
-            }
-        });
-
         password.setFont(new java.awt.Font("JetBrains Mono SemiBold", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -136,7 +123,6 @@ public class SignIn extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(registerbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(signinbtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -164,8 +150,6 @@ public class SignIn extends javax.swing.JFrame {
                     .addComponent(password))
                 .addGap(41, 41, 41)
                 .addComponent(signinbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(registerbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -201,12 +185,6 @@ public class SignIn extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void registerbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbtnActionPerformed
-        // got to register page
-        this.dispose();
-        register.setVisible(true);
-    }//GEN-LAST:event_registerbtnActionPerformed
-
     private void signinbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinbtnActionPerformed
 
         // sign in
@@ -234,7 +212,6 @@ public class SignIn extends javax.swing.JFrame {
                     resetFields();
 
                     this.dispose();
-                    backToHomeChange = 1;
                     home.setVisible(true);
 
                 } else {
@@ -261,7 +238,6 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField password;
-    private javax.swing.JButton registerbtn;
     private javax.swing.JButton signinbtn;
     // End of variables declaration//GEN-END:variables
 

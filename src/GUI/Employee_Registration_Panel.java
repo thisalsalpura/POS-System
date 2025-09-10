@@ -776,11 +776,7 @@ public class Employee_Registration_Panel extends javax.swing.JPanel {
             parentWindow.dispose();
         }
 
-        if (Employee_Address.backToHomeChange == 1) {
-            home.setVisible(true);
-        } else {
-            signin.setVisible(true);
-        }
+        home.setVisible(true);
 
     }//GEN-LAST:event_backLogobackToHome
 
